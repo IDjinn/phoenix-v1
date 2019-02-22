@@ -6,6 +6,7 @@ const Discord = require('discord.js')
 function sleep(ms) {
 		return new Promise(resolve => setTimeout(resolve, ms));
 	}
+const extras = require('../utilitarios/extras.js')
 //Caso não for um comando reconhecido, achar um mais próximo (erros gramaticais)
 async function comandosSimilares(comando,client) {
 	let comandos  = []
@@ -34,13 +35,7 @@ module.exports = async (message) => {
 	if(command) command = command.toLowerCase()
 
 	if (!message.content.startsWith(prefixo) && !message.content.startsWith(`<@${client.user.id}>`)) return;
-	/*
-	if(servidor.canais.comandos != "false"){
-		if(message.channel.id != servidor.canais.comandos && client.checarPermissoesServidor(message) == 0){
-			await message.delete().catch()
-			return client.emit("oopsEmbed",message,`Você só pode usar comandos no canal <#${servidor.canais.comandos}>!`,true)
-		}
-	}*/
+
     
 	try {
 		let cmd = client.comandos.get(command) || client.comandos.get(client.aliases.get(command))
@@ -57,6 +52,12 @@ module.exports = async (message) => {
 			message.react('538036569060278273').catch()
 		}
 		if (cmd) {
+			if(servidor.canais.comandos != "false"){
+				if(message.channel.id != servidor.canais.comandos && client.checarPermissoesServidor(message) == 0){
+					await message.delete().catch()
+					return client.emit("oopsEmbed",message,`Você só pode usar comandos no canal <#${servidor.canais.comandos}>!`,true)
+				}
+			}
 			if(client.nbanidos.has(message.author.id) && !jaAvisado.has(message.author.id)){
 				 await message.delete().catch()
 				 jaAvisado.add(message.author.id)

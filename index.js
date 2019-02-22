@@ -211,8 +211,9 @@ async function Cache(){
     Timers.find({}, function(err, timers) {
         console.log(`Carregando ${timers.length} timers!`)
         timers.forEach(function(t) {
-            if(t.ativo && t.quantidaderepetir > 0){
+            if(t.ativo && t.quantidaderepetir > 0 && t.validade > Date.now()){
             client.timers[t.servidor] = {
+                client: client,
                 servidor: t.servidor,
                 criado: t.criado,
                 intervalo: t.intervalo,
@@ -226,12 +227,6 @@ async function Cache(){
                 quantidaderepetir: t.quantidaderepetir
             }
         let timer = new Temporizador(client.timers[t.servidor])
-            let temporizado = client.setInterval(() => {
-                timer.run(client)
-                if(!timer.ativo) {
-                    clearInterval(temporizado)
-                }
-            }, t.intervalo);
         }
         });  
     });
@@ -243,31 +238,31 @@ exports.cache = async () => Cache()
 exports.atualizarComandos = async () => RegistrarComandos()
 
 async function RegistrarComandos(){
-   /* async function filtragem(modulo,c){
+    async function filtragem(modulo,c){
         if(c.configuracao.apenasCriador == true && c.configuracao.modulo != 'especiais') return false
         if(c.configuracao.modulo == modulo) return true
-    }*/
-    client.Diversao.comandos = client.comandos.filter(c => c.configuracao.modulo == 'diversao').reduce((a,b) => a + ', `'+ b.ajuda.nome +'`').replace(/[object Object], /g,'')
-    client.Moderacao.comandos = client.comandos.filter(c => c.configuracao.modulo == 'moderacao').reduce((a,b) => a + ', `'+ b.ajuda.nome +'`').replace(/[object Object], /g,'')
-    client.Administracao.comandos = client.comandos.filter(c => c.configuracao.modulo == 'administracao').reduce((a,b) => a + ', `'+ b.ajuda.nome +'`').replace(/[object Object], /g,'')
-    client.Utilitarios.comandos = client.comandos.filter(c => c.configuracao.modulo == 'utilitarios').reduce((a,b) => a + ', `'+ b.ajuda.nome +'`').replace(/[object Object], /g,'')
-    client.Jogos.comandos = client.comandos.filter(c => c.configuracao.modulo == 'jogos').reduce((a,b) => a + ', `'+ b.ajuda.nome +'`').replace(/[object Object], /g,'')
-    //client.Musica.comandos = client.comandos.filter(c => c.configuracao.modulo == 'musica').reduce((a,b) => a + ', `'+ b.ajuda.nome +'`').replace(/[object Object], /g,'')
-    client.Economia.comandos = client.comandos.filter(c => c.configuracao.modulo == 'economia').reduce((a,b) => a + ', `'+ b.ajuda.nome +'`').replace(/[object Object], /g,'')
-    client.Especiais.comandos = client.comandos.filter(c => c.configuracao.apenasCriador == true).reduce((a,b) => a + ', `'+ b.ajuda.nome +'`').replace(/[object Object], /g,'')
-    client.Outros.comandos = client.comandos.filter(c => c.configuracao.modulo == 'outros').reduce((a,b) => a + ', `'+ b.ajuda.nome +'`').replace(/[object Object], /g,'')
-    client.Imagens.comandos = client.comandos.filter(c => c.configuracao.modulo == 'photoshop').reduce((a,b) => a + ', `'+ b.ajuda.nome +'`').replace(/[object Object], /g,'')
+    }
+    client.Diversao.comandos = client.comandos.map(c => filtragem('diversao',c) == true).join(', `'+ b.ajuda.nome +'`')
+    client.Moderacao.comandos = client.comandos.map(c => filtragem('moderacao',c) == true ).join(', `'+ b.ajuda.nome +'`')
+    client.Administracao.comandos = client.comandos.map(c => filtragem('administracao',c) == true ).join(', `'+ b.ajuda.nome +'`')
+    client.Utilitarios.comandos = client.comandos.map(c => filtragem('utilitarios',c) == true ).join(', `'+ b.ajuda.nome +'`')
+    client.Jogos.comandos = client.comandos.map(c => filtragem('jogos',c) == true ).join(', `'+ b.ajuda.nome +'`')
+    //client.Musica.comandos = client.comandos.map(c => filtragem('musica',c) == true ).join(', `'+ b.ajuda.nome +'`')
+    client.Economia.comandos = client.comandos.map(c => filtragem('economia',c) == true ).join(', `'+ b.ajuda.nome +'`')
+    client.Especiais.comandos = client.comandos.map(c => filtragem('apenasCriador',c) == true).join(', `'+ b.ajuda.nome +'`')
+    client.Outros.comandos = client.comandos.map(c => filtragem('outros',c) == true ).join(', `'+ b.ajuda.nome +'`')
+    client.Imagens.comandos = client.comandos.map(c => filtragem('photoshop',c) == true ).join(', `'+ b.ajuda.nome +'`')
 
-    client.Diversao.fcmd = client.comandos.filter(c => c.configuracao.modulo == 'diversao').reduce((a,b) => a + '\n`'+ b.ajuda.nome +'` -> ' + b.ajuda.descricao).replace(/[object Object]/g,'')
-    client.Moderacao.fcmd = client.comandos.filter(c => c.configuracao.modulo == 'moderacao').reduce((a,b) => a + '\n`'+ b.ajuda.nome +'` -> ' + b.ajuda.descricao).replace(/[object Object]/g,'')
-    client.Administracao.fcmd = client.comandos.filter(c => c.configuracao.modulo == 'administracao').reduce((a,b) => a + '\n`'+ b.ajuda.nome +'` -> ' + b.ajuda.descricao).replace(/[object Object]/g,'')
-    client.Utilitarios.fcmd = client.comandos.filter(c => c.configuracao.modulo == 'utilitarios').reduce((a,b) => a + '\n`'+ b.ajuda.nome +'` -> ' + b.ajuda.descricao).replace(/[object Object]/g,'')
-    client.Jogos.fcmd = client.comandos.filter(c => c.configuracao.modulo == 'jogos').reduce((a,b) => a + '\n`'+ b.ajuda.nome +'` -> ' + b.ajuda.descricao).replace(/[object Object]/g,'')
-    //client.Musica.fcmd = client.comandos.filter(c => c.configuracao.modulo == 'musica').reduce((a,b) => a + '\n`'+ b.ajuda.nome +'` -> ' + b.ajuda.descricao).replace(/[object Object]/g,'')
-    client.Economia.fcmd = client.comandos.filter(c => c.configuracao.modulo == 'economia').reduce((a,b) => a + '\n`'+ b.ajuda.nome +'` -> ' + b.ajuda.descricao).replace(/[object Object]/g,'')
-    client.Especiais.fcmd = client.comandos.filter(c => c.configuracao.apenasCriador == true).reduce((a,b) => a + '\n`'+ b.ajuda.nome +'` -> ' + b.ajuda.descricao).replace(/[object Object]/g,'')
-    client.Outros.fcmd = client.comandos.filter(c => c.configuracao.modulo == 'outros').reduce((a,b) => a + '\n`'+ b.ajuda.nome +'` -> ' + b.ajuda.descricao).replace(/[object Object]/g,'')
-    client.Imagens.fcmd = client.comandos.filter(c => c.configuracao.modulo == 'photoshop').reduce((a,b) => a + '\n`'+ b.ajuda.nome +'` -> ' + b.ajuda.descricao).replace(/[object Object]/g,'')
+    client.Diversao.fcmd = client.comandos.map(c => filtragem('diversao',c) == true ).join('\n`'+ b.ajuda.nome +'` -> ' + b.ajuda.descricao)
+    client.Moderacao.fcmd = client.comandos.map(c => filtragem('moderacao',c) == true ).join('\n`'+ b.ajuda.nome +'` -> ' + b.ajuda.descricao)
+    client.Administracao.fcmd = client.comandos.map(c => filtragem('administracao',c) == true ).join('\n`'+ b.ajuda.nome +'` -> ' + b.ajuda.descricao)
+    client.Utilitarios.fcmd = client.comandos.map(c => filtragem('utilitarios',c) == true, '\n`'+ c.ajuda.nome +'` -> ' + c.ajuda.descricao ).join('')
+    client.Jogos.fcmd = client.comandos.map(c => filtragem('jogos',c) == true ).join('\n`'+ b.ajuda.nome +'` -> ' + b.ajuda.descricao)
+    //client.Musica.fcmd = client.comandos.map(c => filtragem('musica',c) == true ).join('\n`'+ b.ajuda.nome +'` -> ' + b.ajuda.descricao)
+    client.Economia.fcmd = client.comandos.map(c => filtragem('economia',c) == true ).join('\n`'+ b.ajuda.nome +'` -> ' + b.ajuda.descricao)
+    client.Especiais.fcmd = client.comandos.map(c => filtragem('apenasCriador',c) == true).join('\n`'+ b.ajuda.nome +'` -> ' + b.ajuda.descricao)
+    client.Outros.fcmd = client.comandos.map(c => filtragem('outros',c) == true ).join('\n`'+ b.ajuda.nome +'` -> ' + b.ajuda.descricao)
+    client.Imagens.fcmd = client.comandos.map(c => filtragem('photoshop',c) == true ).join('\n`'+ b.ajuda.nome +'` -> ' + b.ajuda.descricao)
 }
 
 const log = (msg) => {
@@ -289,8 +284,6 @@ for(let modulo of modulos){
             client.aliases.set(alias, propriedades.ajuda.nome)
         });
     });
-
-
 })}
 
 

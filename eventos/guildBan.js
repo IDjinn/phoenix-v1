@@ -16,8 +16,7 @@ module.exports = async (guild) => {
         if(guild.banimentosAdicionados){
             guild.banimentosAdicionados.quantidade += 1
             if(guild.banimentosAdicionados.quantidade > 3){
-                let tempo = guild.banimentosAdicionados.tempo
-                if(tempo >= Date.now()) guild.ban(log.executor.id,{reason: 'Possível Raid, banir pessoas muito rápido.'}).catch()
+                if(guild.banimentosAdicionados.tempo >= Date.now()) guild.ban(log.executor.id,{reason: 'Possível Raid, banir pessoas muito rápido.'}).catch()
                 else delete guild.banimentosAdicionados
             }
         }

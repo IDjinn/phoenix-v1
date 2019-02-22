@@ -132,28 +132,28 @@ module.exports = {
                 id: id
             },async (erro, servidor) => {
         if(erro) return console.log(erro)
-        if(!servidor) return this.CriarServidor(id,client)
+        if(!servidor) return //this.CriarServidor(id,client)
         else {
             client.servidores[id] = {
                 id: id,
                 canais:{
-                    entrada: servidor.canais.entrada,
-                    saida: servidor.canais.saida,
-                    comandos: servidor.canais.comandos,
-                    anunciar: servidor.canais.anunciar,
-                    logs: servidor.canais.logs,
-                    niveis: servidor.canais.niveis,
-                    verificar: servidor.canais.verificar,
-                    punicao: servidor.canais.punicao,
-                    contadorbot: servidor.canais.contadorbot,
-                    contadormembro: servidor.canais.contadormembro,
-                    sugestao: servidor.canais.sugestao
+                    entrada: !isNaN(servidor.canais.entrada) ? servidor.canais.entrada : 'false',
+                    saida: !isNaN(servidor.canais.saida) ? servidor.canais.saida : 'false',
+                    comandos: !isNaN(servidor.canais.comandos) ? servidor.canais.comandos : 'false',
+                    anunciar: !isNaN(servidor.canais.anunciar) ? servidor.canais.anunciar : 'false',
+                    logs: !isNaN(servidor.canais.logs) ? servidor.canais.logs : 'false',
+                    niveis: !isNaN(servidor.canais.niveis) ? servidor.canais.niveis : 'false',
+                    verificar: !isNaN(servidor.canais.verificar) ? servidor.canais.verificar : 'false',
+                    punicao: !isNaN(servidor.canais.punicao) ? servidor.canais.punicao : 'false',
+                    contadorbot: !isNaN(servidor.canais.contadorbot) ? servidor.canais.contadorbot : 'false',
+                    contadormembro: !isNaN(servidor.canais.contadormembro) ? servidor.canais.contadormembro : 'false',
+                    sugestao: !isNaN(servidor.canais.sugestao) ? servidor.canais.sugestao : 'false',
                 },
                 cargos: {
-                    adm: servidor.cargos.adm,
-                    mod: servidor.cargos.mod,
-                    inicial: servidor.cargos.inicial,
-                    verificado: servidor.cargos.verificado
+                    adm: !isNaN(servidor.cargos.adm) ? servidor.cargos.adm : 'false',
+                    mod: !isNaN(servidor.cargos.mod) ? servidor.cargos.mod : 'false',
+                    inicial: !isNaN(servidor.cargos.inicial) ? servidor.cargos.inicial : 'false',
+                    verificado:!isNaN(servidor.cargos.verificado) ? servidor.cargos.verificado : 'false',
                 },
                 automod: {
                     autowarn: servidor.automod.autowarn,
@@ -169,16 +169,16 @@ module.exports = {
                     textdup: servidor.automod.textdup
                 },
                 eco:{
-                    singular: servidor.eco.singular,
-                    plural: servidor.eco.plural,
-                    valor: servidor.eco.valor
+                    singular: servidor.eco.singular == undefined ? 'Real' : servidor.eco.singular,
+                    plural: servidor.eco.plural == undefined ? 'Reais' : servidor.eco.plural,
+                    valor: servidor.eco.valor == undefined ? '1000' : servidor.eco.valor,
                 },
                 welcome: servidor.welcome,
                 leave: servidor.leave,
                 vip: servidor.vip,
                 counterb: servidor.counterb,
                 counterm: servidor.counterm,
-                prefixo: servidor.prefixo,
+                prefixo: servidor.prefixo != undefined ? servidor.prefixo : '>',
                 playList: [],
                 ultimosMembros: []
                 }

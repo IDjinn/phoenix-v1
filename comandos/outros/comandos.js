@@ -3,6 +3,7 @@ const permissoes = require('../../utilitarios/permissoes.json')
 const util = require('../../utilitarios/util.js')
     
 exports.run = async (client, message, args) => {
+    return message.reply("Desculpe, mas atualmente esse comando está desativado!")
     let prefixo = client.servidores[message.guild.id].prefixo || ">"
     const embed = new Discord.RichEmbed()
     .setTitle(`Ajuda ${client.user.username}`)   

@@ -4,7 +4,7 @@ exports.run = async function(client, message, args) {
     let membro = message.mentions.members.first() || message.guild.members.get(args[0])
     if(!membro) return client.emit('ajudaComando', message, this.ajuda, this.configuracao);
 
-    message.reply(`Qual cargo deseja dar para ${membro.displayName}, e por quanto tempo?\nExemplo: \`@Vip 10 dias\``)
+    await message.reply(`Qual cargo deseja dar para ${membro.displayName}, e por quanto tempo?\nExemplo: \`@Vip 10 dias\``)
     
     const filtro = m => m.author.id == message.author.id
     await message.channel.awaitMessages(filtro, { max: 1, time: 60000, errors: ['time'] })

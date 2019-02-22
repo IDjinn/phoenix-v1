@@ -105,7 +105,8 @@ else return message.channel.send("Operação Cancelada.")
         ativo: true,
         validade: Date.now() + tempo,
         canal: message.channel.id,
-        quantidaderepetir: quantidade
+        quantidaderepetir: quantidade,
+        client: client
     }
     let c = new Timer({
       servidor: message.guild.id,
@@ -121,13 +122,13 @@ else return message.channel.send("Operação Cancelada.")
       quantidaderepetir: quantidade
     })
     c.save()
-    let temp = new Temporizador(client.timers[message.channel.id])
+    let temp = new Temporizador(client.timers[message.channel.id])/*
     setInterval(() => {
       temp.run(client)
       if(!temp.ativo) {
           clearInterval(temp)
       }
-    }, intervalo );
+    }, intervalo );*/
   }
   return message.channel.send("Configurado com sucesso!")
 

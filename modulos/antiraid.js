@@ -147,9 +147,7 @@ Porcentagem = message.author.raider.porcentagem
         client.channels.get(constantes.phoenix.automod).send(embedRaid)
 }
 
-if(client.checarPermissoesServidor(message) > 0) message.author.raider.porcentagem = (Porcentagem - 15) < 0 ? 0 : Porcentagem - 15
-
-if(Date.now() > tempo) message.author.raider = {
+if(Date.now() > tempo || client.checarPermissoesServidor(message)) message.author.raider = {
         porcentagem: (Porcentagem - 15) < 0 ? 0 : Porcentagem - 15,
         tempo: Date.now()
 }

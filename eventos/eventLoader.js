@@ -12,7 +12,7 @@ module.exports = async client => {
 	//Servidores
     client.on('guildMemberAdd', requerEvento('guildMemberAdd'));
 	client.on('guildMemberRemove', requerEvento('guildMemberRemove'));
-	client.on("guildCreate", guild => extras.CriarServidor(guild))
+	//client.on("guildCreate", guild => extras.CriarServidor(guild))
 	client.on('guildBanAdd', requerEvento('guildBan'));
 	client.on('guildBanRemove', requerEvento('guildBan'));
 	client.on('guildUpdate', requerEvento('guildUpdate'));

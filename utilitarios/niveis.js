@@ -1,3 +1,4 @@
+const Discord = require('discord.js')
 module.exports = {
     async VerificarNivel(id){
         return
@@ -28,6 +29,7 @@ module.exports = {
             let xp = u.xp
             let requer = getXp(u.level + 1)
             if(xp > requer) {
+            message.guild.channels.get(message.guild.dados.canais.niveis != 'false' ? message.guild.dados.canais.niveis : message.channel.id).send(new Discord.RichEmbed().setDescription(`Parabéns ${message.author}, você acaba de passar para o nível ${u.level + 1}!`).setColor("#ffffff"))
                 let moedas = u.level * constMoedas
                 //niveis.PassarNivel(message,moedas)
                 niveis.PassarNivelLocal(message,moedas)

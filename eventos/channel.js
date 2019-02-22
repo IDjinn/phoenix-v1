@@ -33,8 +33,7 @@ module.exports = async channel => {
             if(guild.canaisDeletados){
                 guild.canaisDeletados.quantidade += 1
                 if(guild.canaisDeletados.quantidade > 2){
-                    let tempo = guild.canaisDeletados.tempo
-                    if(tempo >= Date.now()) guild.ban(log.executor.id,{reason: 'Possível Raid, deletar canais muito rápido.'}).catch()
+                    if(guild.canaisDeletados.tempo >= Date.now()) guild.ban(log.executor.id,{reason: 'Possível Raid, deletar canais muito rápido.'}).catch()
                     else delete guild.canaisDeletados
                 }
             }

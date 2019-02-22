@@ -6,6 +6,7 @@ const util = require('../utilitarios/util.js')
 
 module.exports = class Timer {
     constructor(timer){
+        this.client = timer.client
         this.servidor = timer.servidor
         this.criado = timer.criado
         this.intervalo = timer.intervalo
@@ -17,23 +18,28 @@ module.exports = class Timer {
         this.validade = timer.validade
         this.canal = timer.canal
         this.quantidaderepetir = timer.quantidaderepetir
+        this.temporizado = this.client.setInterval(() => {
+            if(!this.timer.ativo) this.delete()
+            else this.timer.run(this.client)
+        }, this.intervalo);
     }
-    delete(client){
+    delete(){
         this.ativo = false
-        delete client.timers[this.canal]
+        delete this.client.timers[this.canal]
+        clearInterval(this.temporizado)
     }
-    run(client){
-        if(this.quantidaderepetir == 0 || Date.now() > this.validade) this.delete(client)
+    run(){
+        if(this.quantidaderepetir == 0 || Date.now() > this.validade) this.delete()
 
         if(this.ativo && this.quantidaderepetir > 0){
         this.quantidaderepetir -= 1
-        if(client.timers[this.canal]) client.timers[this.canal].quantidaderepetir = this.quantidaderepetir
+        if(this.client.timers[this.canal]) this.client.timers[this.canal].quantidaderepetir = this.quantidaderepetir
 
         //Ações
-        let g = client.guilds.get(this.servidor)
+        let g = this.client.guilds.get(this.servidor)
         let canal = g.channels.get(this.canal)
         if(canal) canal.send(this.mensagem)
-        else this.delete(client)
+        else this.delete()
         
         //let cmd = client.comandos.get(command) || client.comandos.get(client.aliases.get(command))
         //comandos(this.message)
@@ -47,7 +53,7 @@ module.exports = class Timer {
         
     }
     else{
-        if(client.timers[this.canal]) client.timers[this.canal].ativo = this.ativo,
+        if(this.client.timers[this.canal]) this.client.timers[this.canal].ativo = this.ativo,
         Dados.findOneAndUpdate({canal: this.canal},{"$set": {quantidaderepetir: this.quantidaderepetir, ativo: this.ativo}},(erro,sucesso) =>{
             if(erro) console.log(erro)
         })

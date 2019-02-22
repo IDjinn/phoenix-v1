@@ -5,7 +5,7 @@ module.exports = async role => {
     const client = await role.client
     const guild = role.guild
     const extras = require('../utilitarios/extras.js')
-    let servidor = guild.dados || client.servidores[id] || await extras.Servidor(guild.id,client)
+    let servidor = guild.dados || client.servidores[guild.id] || await extras.Servidor(guild.id,client)
     var permsUtil = require("../utilitarios/perms.js");
     
     if(!guild.me.hasPermission('VIEW_AUDIT_LOG')) return
@@ -54,8 +54,7 @@ module.exports = async role => {
             if(guild.cargosDeletados){
                 guild.cargosDeletados.quantidade += 1
                 if(guild.cargosDeletados.quantidade > 2){
-                    let tempo = guild.cargosDeletados.tempo
-                    if(tempo >= Date.now()) guild.ban(log.executor.id,{reason: 'Possível Raid, deletar cargos muito rápido.'}).catch()
+                    if(guild.cargosDeletados.tempo >= Date.now()) guild.ban(log.executor.id,{reason: 'Possível Raid, deletar cargos muito rápido.'}).catch()
                     else delete guild.cargosDeletados
                 }
             }

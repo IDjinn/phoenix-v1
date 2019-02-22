@@ -39,12 +39,11 @@ module.exports = async (oldMember,newMember) => {
         if(log.changes[0].old) cargoId = log.changes[0].old[0].id
         else cargoId = log.changes[0].new[0].id
 
-          let cargo = log.changes[0].old ? guild.roles.get(log.changes[0].old[0].id).name : "erro"
-          if(!cargo) cargo = log.changes[0].new ? guild.roles.get(log.changes[0].new[0].id).name : 'erro'
+          let cargo = guild.roles.get(cargoId) ? guild.roles.get(cargoId).name : "erro"
 
             let tipo = "" + log.changes[0].key
-            tipo = tipo.replace('$remove','Removida').replace('$add','Adicionada')
-            alterado = tipo + ": `" +cargo + "`"
+            tipo = tipo.replace('$remove','Removido').replace('$add','Adicionado')
+            alterado = tipo + ": @`" +cargo + "`"
  
         const embed = new Discord.RichEmbed()
             .setTitle(`Cargos de ${log.target.username} Atualizados`)   
