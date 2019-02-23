@@ -26,6 +26,6 @@ exports.configuracao = {
 exports.ajuda = {
     nome: 'mcquery',
     descricao: 'Verifique status de um servidor Minecraft.',
-    usar: 'mcquery [ip/ip:porta]',
+    usar: 'mcquery <ip/ip:porta>',
     exemplos: ['mc.hypixel.net','meuip:25565']
 };

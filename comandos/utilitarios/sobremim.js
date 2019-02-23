@@ -25,6 +25,6 @@ exports.configuracao = {
 exports.ajuda = {
     nome: 'sobremim',
     descricao: 'Define uma mensagem sobre você no seu Perfil.',
-    usar: 'sobremim [texto tamanho: entre 0 e 150 caracteres]',
+    usar: 'sobremim [texto]',
     exemplos: ['Eu sou muito legal','Djinn esteve aqui!']
 };

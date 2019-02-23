@@ -28,6 +28,7 @@
     "imdb-api": "^4.0.2",
     "jimp": "^0.2.28",
     "marked": "^0.6.0",
+    "mathjs": "^5.5.0",
     "mc-ping-updated": "^0.1.0",
     "moment": "^2.24.0",
     "moment-duration-format": "^2.2.2",

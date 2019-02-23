@@ -64,5 +64,5 @@ exports.ajuda = {
 nome: 'ajuda',
 descricao: 'Mostra informações sobre um comando expecífico.',
 usar: 'ajuda <comando>',
-exemplos: ['ajuda ping','ajuda ticket','ajuda cargo']
+exemplos: ['ping','ticket','cargo']
 };

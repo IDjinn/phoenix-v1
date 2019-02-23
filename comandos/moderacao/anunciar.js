@@ -1,27 +1,26 @@
+const Discord = require('discord.js');
 exports.run = async function(client, message, args) {
-    const Discord = require('discord.js');
-    let canal = message.mentions.channels.first() || client.channels.get(args[0])
-    if(!canal){
-        canal = message.channel
-    }
-    if(args[0] == null || args[0] == ""){
-        return client.emit("embedDescricao",message,"Falta o título!",true)
-    }
-    else if(args[1] == null || args[1] == ""){
-        return client.emit("embedDescricao",message,"Para separar o título da descrição, use `|`!",true)   
-    }
-    let aaa = args.join(" ");
-    let lol = aaa.split("|");
+    const filtro = m => m.author.id == message.author.id
+    let titulo = args.join(" ")
+    if(!titulo) return client.emit("embedDescricao",message,"Você não escolheu o título!",true)
+    let desc
+
+    await message.channel.send("Qual será a descrição do anúncio?")
+    await message.channel.awaitMessages(filtro, { max: 1, time: 60000, errors: ['time'] })
+      .then(c => {
+          desc = c.first().content
+        })
+      .catch(c => desc = false);
+
+    if(desc == false || !desc) return client.emit("embedDescricao",message,"Falta a descrição!",true)
+    
     const embed = new Discord.RichEmbed()
-    .setTitle(`${lol[0]}`)   
+    .setTitle(`${titulo}`)   
     .setColor('#ffffff')
-    .setDescription(`${lol[1]}`)
+    .setDescription(`${desc}`)
     .setFooter(`${message.author.tag}`, ` ${message.author.avatarURL}`)
     .setTimestamp()
-    canal.send({embed}).catch(async a =>{
-        return client.emit("embedDescricao",message,"Oops, Parece que não tenho permissão de enviar mensagens lá!",true)   
-    })
-    return client.emit("embedDescricao",message,"Enviado com sucesso!",false)
+    message.channel.send({embed}).catch()
 }
 exports.configuracao = {
     apenasCriador: false,
@@ -34,6 +33,6 @@ exports.configuracao = {
 exports.ajuda = {
     nome: 'anunciar',
     descricao: 'Anuncie no seu servidor, enviando um embed para o Canal de Anúncios.',
-    usar: 'anunciar [título] `|` [descrição]',
-    exemplos: ['Novidades no Servidor | Agora o Phoenix Bot foi adicionao ao servidor.','Novidade | Agora temos queijo no canal #queijos!']
+    usar: 'anunciar <titulo>',
+    exemplos: ['Novidades no Servidor','Agora temos queijo no canal #queijos!']
 };

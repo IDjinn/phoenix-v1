@@ -26,6 +26,6 @@ exports.configuracao = {
 exports.ajuda = {
     nome: 'unmute',
     descricao: 'Faz o usuário silenciado poder voltar à falar no servidor.',
-    usar: 'unmute [usuário]',
-    exemplos: []
+    usar: 'unmute <@usuário>',
+    exemplos: ['@Djinn']
 };

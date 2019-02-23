@@ -55,6 +55,6 @@ exports.configuracao = {
 exports.ajuda = {
     nome: 'perfil',
     descricao: 'Veja o perfil de alguém!',
-    usar: 'perfil',
+    usar: 'perfil <@usuário>',
     exemplos: ['@Djinn','376460601909706773']
 };

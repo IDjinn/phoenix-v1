@@ -1,7 +1,7 @@
 exports.run = async function(client, message, args) {
     const Discord = require('discord.js');
 
-    const user = message.mentions.users.first() || client.users.get(args[0]) || message.author
+    const user = message.mentions.users.first() || client.users.get(args[0]) || client.users.find(u => u.username.match(args.join(" "))) || message.author
     const createdAt = user.createdAt.toString().split(' ');
     const visto = 'Dia ' + createdAt[2] + ' de ' + createdAt[1] + ' de ' + createdAt[3] + '\n as ' + createdAt[4] +  '.' 
     const embed = new Discord.RichEmbed()
@@ -31,6 +31,6 @@ exports.configuracao = {
 exports.ajuda = {
     nome: 'userinfo',
     descricao: 'Mostra informações do usuário.',
-    usar: 'userinfo [usuário]',
-    exemplos: ['@Djinn','376460601909706773']
+    usar: 'userinfo <@usuário>',
+    exemplos: ['@Djinn']
 };

@@ -21,7 +21,7 @@ message.channel.fetchMessages({
 exports.configuracao = {
     apenasCriador: false,
     modulo: 'moderacao',
-    aliases: [],
+    aliases: ['clear'],
     permissoesNecessarias: ['MANAGE_MESSAGES'],
     permissoesBot: []
 };
@@ -29,6 +29,6 @@ exports.configuracao = {
 exports.ajuda = {
     nome: 'limpar',
     descricao: 'Limpe o chat!',
-    usar: 'limpar [usuário/quantidade]',
-    exemplos: ['limpar 100','limpar @Djinn 100']
+    usar: 'limpar <usuário/quantidade>',
+    exemplos: ['100','@Djinn 100']
 };

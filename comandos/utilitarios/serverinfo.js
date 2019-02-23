@@ -42,6 +42,6 @@ exports.configuracao = {
 exports.ajuda = {
     nome: 'serverinfo',
     descricao: 'Mostra informações do servidor.',
-    usar: 'serverinfo',
+    usar: 'serverinfo [servidor]',
     exemplos: []
 };

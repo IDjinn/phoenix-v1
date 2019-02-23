@@ -9,7 +9,7 @@ exports.run = async function(client, message, args) {
         category: 'Categoria',
         unknown: 'Desconhecido'
     };
-    const channel = message.mentions.channels.first() || message.guild.channels.get(args.join(' ')) || message.channel
+    const channel = message.mentions.channels.first() || message.guild.channels.get(args[0]) || message.guild.channels.find(c => c.name.match(args.join(' '))) || message.channel
     if(!channel)  return client.emit("embedDescricao",message,"Mencione um canal, use o ID dele ou o nome dele!",true)   
     const embed = new Discord.RichEmbed()
         .setColor('#ffffff')

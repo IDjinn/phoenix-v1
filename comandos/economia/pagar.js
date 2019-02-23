@@ -46,6 +46,6 @@ exports.configuracao = {
 exports.ajuda = {
     nome: 'pagar',
     descricao: 'Pagar moedas para outro membro do servidor.',
-    usar: 'pagar',
+    usar: 'pagar <@usuario>',
     exemplos: ['@Djinn 35']
 };

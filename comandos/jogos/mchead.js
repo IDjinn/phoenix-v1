@@ -19,6 +19,6 @@ exports.configuracao = {
 exports.ajuda = {
     nome: 'mchead',
     descricao: 'Veja a cabeça de alguém!',
-    usar: 'mchead [nome]',
+    usar: 'mchead <nick>',
     exemplos: []
 };

@@ -53,6 +53,6 @@ exports.configuracao = {
 exports.ajuda = {
     nome: 'warnlist',
     descricao: 'Dê uma advertência à alguém!',
-    usar: 'warnlist @usuário <motivo>',
+    usar: 'warnlist <@usuário> [motivo]',
     exemplos: []
 };

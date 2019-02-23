@@ -13,6 +13,6 @@ exports.configuracao = {
 exports.ajuda = {
     nome: 'google',
     descricao: 'Pesquise algo no google!',
-    usar: 'google [texto]',
+    usar: 'google <texto>',
     exemplos: ['bitcoin','novelas globo']
 };

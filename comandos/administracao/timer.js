@@ -144,7 +144,7 @@ exports.configuracao = {
 
 exports.ajuda = {
     nome: 'timer',
-    descricao: 'a',
+    descricao: 'Cria um temporizador para ações bem úteis!',
     usar: 'timer',
     exemplos: []
 };

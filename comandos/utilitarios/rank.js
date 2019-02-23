@@ -129,6 +129,6 @@ exports.configuracao = {
 exports.ajuda = {
     nome: 'rank',
     descricao: 'Confira o nível e xp de alguém!',
-    usar: 'rank @usuário',
+    usar: 'rank <@usuário>',
     exemplos: ['@Djinn','376460601909706773']
 };

@@ -10,19 +10,12 @@ module.exports = async member => {
     
     if(guild.id == '498011182620475412'){
         if(member.user.createdAt >= '1514772000000' && !member.user.bot){
-        var segundos = (member.user.createdAt - Date.now()) / 1000
-        var dias = Math.floor(segundos / (3600*24));
-        segundos  -= dias*3600*24;
-        var horas   = Math.floor(segundos / 3600);
-        segundos  -= horas*3600;
-        var minutos = Math.floor(segundos / 60);
-        segundos  -= minutos*60;
         
         let createdAt = member.user.createdAt.toString().split(' ');
         let visto = 'Dia ' + createdAt[2] + ' de ' + createdAt[1] + ' de ' + createdAt[3] + '\n as ' + createdAt[4] +  '.' 
         const newMember = new Discord.RichEmbed()
         .setColor('#ffffff')
-        .setDescription(`Novo membro acaba de entrar, ${member} criou sua conta em ${visto} (${Math.abs(dias) > 0 ? Math.abs(dias) + ' dias' : horas + ' horas'}).`)
+        .setDescription(`Novo membro acaba de entrar, ${member} criou sua conta em ${visto}.`)
         .setThumbnail(member.user.displayAvatarURL)
         client.channels.get('548613630040473601').send(newMember)
         }

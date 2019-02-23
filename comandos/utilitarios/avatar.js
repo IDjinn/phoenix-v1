@@ -22,5 +22,5 @@ exports.ajuda = {
     nome: 'avatar',
     descricao: 'Mostra a imagem de avatar do usuário.',
     usar: 'avatar [usuário]',
-    exemplos: ['Djinn','376460601909706773']
+    exemplos: ['@Djinn']
 };

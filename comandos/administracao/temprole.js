@@ -52,6 +52,6 @@ exports.configuracao = {
 exports.ajuda = {
     nome: 'temprole',
     descricao: 'Dá um cargo para alguém durante um determinado tempo',
-    usar: 'temprole @usuario',
+    usar: 'temprole <@usuario>',
     exemplos: ['@Djinn']
 };

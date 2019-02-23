@@ -27,6 +27,6 @@ exports.configuracao = {
 exports.ajuda = {
     nome: 'conquista',
     descricao: 'Desbloqueie uma conquista do Minecraft!',
-    usar: 'conquista [texto]',
+    usar: 'conquista <texto>',
     exemplos: ['Um texto bem legal aqui']
 };

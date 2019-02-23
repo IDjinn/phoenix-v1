@@ -35,6 +35,6 @@ exports.configuracao = {
 exports.ajuda = {
     nome: 'drake',
     descricao: 'Faz o meme do drake com 2 usuários',
-    usar: 'drake @usuario @usuario',
+    usar: 'drake <@usuario> <@usuario>',
     exemplos: ['Um texto bem legal aqui']
 };

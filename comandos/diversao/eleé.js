@@ -23,6 +23,6 @@ exports.configuracao = {
 exports.ajuda = {
     nome: 'eleé',
     descricao: 'Ele é ??% alguma coisa!',
-    usar: 'eleé [algo]',
-    exemplos: ['376460601909706773 homem','@Djinn lindo']
+    usar: 'eleé <algo>',
+    exemplos: ['@Djinn lindo']
 };

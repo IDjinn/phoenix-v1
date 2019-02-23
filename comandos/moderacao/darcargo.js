@@ -19,6 +19,6 @@ exports.configuracao = {
 exports.ajuda = {
     nome: 'darcargo',
     descricao: 'Dê um cargo à alguém!',
-    usar: 'darcargo @user @cargo',
+    usar: 'darcargo <@user> <@cargo>',
     exemplos: ['@Djinn @Membros']
 };

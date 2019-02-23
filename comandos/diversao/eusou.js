@@ -22,6 +22,6 @@ exports.configuracao = {
 exports.ajuda = {
     nome: 'eusou',
     descricao: 'Você é ??% alguma coisa!',
-    usar: 'eusou [algo]',
+    usar: 'eusou <algo>',
     exemplos: ['lindo','feliz']
 };

@@ -32,7 +32,7 @@ exports.configuracao = {
 
 exports.ajuda = {
     nome: 'banirtodos',
-    descricao: 'Remove todos os membros do seu servidor.',
-    usar: 'banirtodos sim',
-    exemplos: ['sim']
+    descricao: 'Remove e bane todos os membros do seu servidor.',
+    usar: 'banirtodos',
+    exemplos: []
 };

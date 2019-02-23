@@ -1,7 +1,7 @@
 exports.run = async function(client, message, args) {
     const Discord = require('discord.js')
     const moment = require('moment')
-    const role = message.mentions.roles.first() || message.guild.roles.get(args.join(" "))
+    const role = message.mentions.roles.first() || message.guild.roles.get(args[0]) || message.guild.roles.find(r => r.name.match(args.join(" ")))
     if(!role)  return client.emit("embedDescricao",message,"Mencione um cargo, ou use o ID dele!",true)
     const embed = new Discord.RichEmbed()
         .setColor('#ffffff')

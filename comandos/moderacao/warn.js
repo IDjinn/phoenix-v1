@@ -30,6 +30,6 @@ exports.configuracao = {
 exports.ajuda = {
     nome: 'warn',
     descricao: 'Dê uma advertência à alguém!',
-    usar: 'warn @usuário <motivo>',
-    exemplos: []
+    usar: 'warn <@usuário> [motivo]',
+    exemplos: ['@Djinn Enviar convites de outros servidores']
 };

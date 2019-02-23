@@ -91,7 +91,7 @@ exports.run = async function(client, message, args) {
 exports.configuracao = {
     apenasCriador: false,
     modulo: 'administracao',
-    aliases: [],
+    aliases: ['rr'],
     permissoesNecessarias: ['ADM'],
     permissoesBot: ['MANAGE_ROLES']
 };

@@ -7,7 +7,7 @@ module.exports.run = async (client,message,args) => {
     let role = message.guild.roles.find(r => r.name === "Silenciado");
     
     if(!role){try{ role = await message.guild.createRole({ name: "Silenciado",color: "#000000",permissions: []});
-    message.guild.channes.forEach(async (channel,id) => { await channel.overwritePermissions(role,{ SEND_MESSAGES: false, ADD_REACTIONS: false})});}
+    message.guild.channes.forEach(async (channel,id) => { await channel.overwritePermissions(role,{ SEND_MESSAGES: false, CONNECT: false, SPEAK: false, ADD_REACTIONS: false})});}
     catch {return client.emit("embedDescricao",message,"Ocorreu um erro quando tentei criar o cargo de Silenciados.",true)}}
     
     if(usuario.roles.has(role.id)) return client.emit("embedDescricao",message,"Esse usuário já está silenciado!",true)
@@ -45,7 +45,7 @@ module.exports.run = async (client,message,args) => {
 exports.configuracao = {
     apenasCriador: false,
     modulo: 'moderacao',
-    aliases: ['silenciar'],
+    aliases: ['silenciar','tempmute'],
     permissoesNecessarias: ['MOD'],
     permissoesBot: ['MANAGE_ROLES']
 };
@@ -53,6 +53,6 @@ exports.configuracao = {
 exports.ajuda = {
     nome: 'mute',
     descricao: 'Silencie o usuário do servidor.',
-    usar: 'mute [usuário] [tempo em segundos] [motivo]',
+    usar: 'mute <@usuário> <tempo em segundos> [motivo]',
     exemplos: ['Djinn cansei dele','@Mee6 SPAM']
 };

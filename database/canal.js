@@ -1,10 +1,9 @@
 var mongoose = require('mongoose');
 var canal = mongoose.Schema({
     id: String,
-    contadormembro: String,
-    contadorbot: String,
     comandos: String,
-    niveis: String,
+    contarnxp: String,
+    contarnivel: String,
     autowarn: String,
     antiraid: String,
     antispamemoji: String,
@@ -13,8 +12,6 @@ var canal = mongoose.Schema({
     whitelink: String,
     antispamcaps: String,
     textdup: String,
-    antispammention: String, //se tem global, isso só vai ser true/false
-    counterm: String,
-    counterb: String
+    antispammention: String //se tem global, isso só vai ser true/false
 });
 module.exports = mongoose.model('Canais', canal);

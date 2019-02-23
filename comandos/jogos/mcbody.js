@@ -19,6 +19,6 @@ exports.configuracao = {
 exports.ajuda = {
     nome: 'mcbody',
     descricao: 'Veja a skin de alguém!',
-    usar: 'mcbody [nome]',
+    usar: 'mcbody <nick>',
     exemplos: []
 };

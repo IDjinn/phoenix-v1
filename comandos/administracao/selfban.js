@@ -34,6 +34,6 @@ exports.configuracao = {
 exports.ajuda = {
     nome: 'selfban',
     descricao: 'Aplica banimento nos ultimos <quantidade> usuários que entraram no servidor.',
-    usar: 'selfban <quantidade> <motivo>',
+    usar: 'selfban <quantidade> [motivo]',
     exemplos: ['10 RAID','2 FLOOD','8']
 };

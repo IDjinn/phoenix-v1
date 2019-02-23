@@ -49,6 +49,6 @@ exports.configuracao = {
 exports.ajuda = {
     nome: 'kick',
     descricao: 'Explusa o usuário do servidor.',
-    usar: 'kick [usuário] [motivo]',
+    usar: 'kick <@usuário> [motivo]',
     exemplos: ['@Djinn ser bonito','342433822710693889 porque sim']
 };

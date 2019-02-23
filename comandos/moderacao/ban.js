@@ -48,6 +48,6 @@ exports.configuracao = {
 exports.ajuda = {
     nome: 'ban',
     descricao: 'Bane o usuário do servidor.',
-    usar: 'ban [usuário] [motivo]',
+    usar: 'ban <usuário> [motivo]',
     exemplos: ['Mee6 ser um bot','Tatsu porque sim']
 };

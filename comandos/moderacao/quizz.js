@@ -5,7 +5,7 @@ exports.run = async function(client, message, args) {
     await message.delete().catch()
     const usuario = await message.author.send("Qual palavra você deseja?")
     
-    let palavra
+    let palavra = ""
     const filtro = m => m.author.id == message.author.id
     await usuario.channel.awaitMessages(filtro, { max: 1, time: 60000, errors: ['time'] })
       .then(c => {

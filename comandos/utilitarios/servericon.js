@@ -21,6 +21,6 @@ exports.configuracao = {
 exports.ajuda = {
     nome: 'servericon',
     descricao: 'Envia o ícone do servidor!',
-    usar: 'servericon',
+    usar: 'servericon [servidor]',
     exemplos: []
 };
