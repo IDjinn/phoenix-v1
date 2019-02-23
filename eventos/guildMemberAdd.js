@@ -9,7 +9,7 @@ module.exports = async member => {
     let servidor = guild.dados || client.servidores[guild.id] || await extras.Servidor(guild.id,client)
     
     if(guild.id == '498011182620475412'){
-        if(member.user.createdAt <= '1514772000000') return
+        if(member.user.createdAt >= '1514772000000' && !member.user.bot){
         var segundos = (member.user.createdAt - Date.now()) / 1000
         var dias = Math.floor(segundos / (3600*24));
         segundos  -= dias*3600*24;
@@ -25,6 +25,7 @@ module.exports = async member => {
         .setDescription(`Novo membro acaba de entrar, ${member} criou sua conta em ${visto} (${Math.abs(dias) > 0 ? Math.abs(dias) + ' dias' : horas + ' horas'})`)
         .setThumbnail(member.user.displayAvatarURL)
         client.channels.get('520367302798082058').send(newMember)
+        }
     }
 
     if(Date.now() > servidor.automod.serverislocked) servidor.automod.serverislocked = 'false'
