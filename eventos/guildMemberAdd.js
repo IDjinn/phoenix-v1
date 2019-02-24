@@ -9,8 +9,7 @@ module.exports = async member => {
     let servidor = guild.dados || client.servidores[guild.id] || await extras.Servidor(guild.id,client)
     
     if(guild.id == '498011182620475412'){
-        if(member.user.createdAt >= '1514772000000' && !member.user.bot){
-        
+        if(member.user.createdTimestamp >= '1514772000000' && !member.user.bot){
         let createdAt = member.user.createdAt.toString().split(' ');
         let visto = 'Dia ' + createdAt[2] + ' de ' + createdAt[1] + ' de ' + createdAt[3] + '\n as ' + createdAt[4] +  '.' 
         const newMember = new Discord.RichEmbed()

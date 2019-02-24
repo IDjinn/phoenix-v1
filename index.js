@@ -173,6 +173,7 @@ async function Cache(){
             if(!g.punicoes) g.punicoes = []
             g.punicoes.push(punicao)
             let membro = await g.members.get(p.id)
+            if(membro){
             if(!membro.punicoes) membro.punicoes = []
             membro.punicoes.push({ 
                 servidor: p.servidor,
@@ -183,7 +184,7 @@ async function Cache(){
                 tipo: p.tipo,
                 bot: p.bot,
                 removidoPor: p.removidoPor
-             })
+             })}
         });  
     });
 
@@ -207,7 +208,6 @@ async function Cache(){
         client.nbanidos.add(s.id)
       });  
     });
-
     Timers.find({}, function(err, timers) {
         console.log(`Carregando ${timers.length} timers!`)
         timers.forEach(function(t) {

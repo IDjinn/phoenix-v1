@@ -23,5 +23,5 @@ exports.ajuda = {
     nome: 'math',
     descricao: 'Calcule uma expressão!',
     usar: 'math <expressão>',
-    exemplos: ['fazer miojo','comprar pão']
+    exemplos: ['15 * 5','PI / 50','2^8']
 };
