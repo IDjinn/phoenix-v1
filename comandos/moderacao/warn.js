@@ -1,10 +1,22 @@
 const Discord = require('discord.js');
 const util = require('../../utilitarios/util.js')
 const Punicoes = require('../../database/punicoes.js')
-exports.run = async function(client, message, args) {
+module.exports = new (class Warn {
+    constructor(){
+            this.apenasCriador = false;
+            this.modulo ='moderacao';
+            this.aliases = ['avisar','aviso'];
+            this.permissoesNecessarias = ['MOD'];
+            this.permissoesBot = [];
+            this.nome = 'warn';
+            this.descricao = 'Dê uma advertência à alguém!';
+            this.usar = 'warn <@usuário> [motivo]';
+            this.exemplos = ['@Djinn Enviar convites de outros servidores']
+        }
+async run(client, message, args) {
 
     let usuario = message.mentions.members.first() || message.guild.members.get(args[0])
-    if(!usuario) return client.emit('ajudaComando', message, this.ajuda, this.configuracao);
+    if(!usuario) return client.emit('ajudaComando', message, this)
     if(usuario == message.member) return client.emit("embedDescricao",message,"Você não pode usar esse comando em sí mesmo.",true)
     let motivo = args.slice(1).join(' ')
     if(!motivo) motivo = "Motivo não expecificado!"
@@ -19,17 +31,4 @@ exports.run = async function(client, message, args) {
     message.channel.send(embed)
     
 }
-exports.configuracao = {
-    apenasCriador: false,
-    modulo: 'moderacao',
-    aliases: ['avisar','aviso'],
-    permissoesNecessarias: ['MOD'],
-    permissoesBot: []
-};
-
-exports.ajuda = {
-    nome: 'warn',
-    descricao: 'Dê uma advertência à alguém!',
-    usar: 'warn <@usuário> [motivo]',
-    exemplos: ['@Djinn Enviar convites de outros servidores']
-};
+})

@@ -1,5 +1,17 @@
 let trancados = new Set()
-exports.run = async function(client, message, args) {
+module.exports = new (class Trancar {
+    constructor(){
+            this.apenasCriador = false;
+            this.modulo ='moderacao';
+            this.aliases = ['lock','unlock','destrancar'];
+            this.permissoesNecessarias = ['ADM'];
+            this.permissoesBot = ['MANAGE_CHANNELS'];
+            this.nome = 'trancar';
+            this.descricao = 'Tranca/Destranca o canal atual para evitar ataques!';
+            this.usar = 'trancar/destrancar <#canal>';
+            this.exemplos = []
+        }
+async run(client, message, args) {
     let canal = await message.mentions.channels.first() || message.guild.channels.get(args[0]) || message.channel
     try{
         if(!trancados.has(canal.id)){
@@ -19,17 +31,4 @@ exports.run = async function(client, message, args) {
         return client.emit("embedDescricao",message,"Oops! Parece que eu não tenho permissão para executar esse comando!",true)
     }
 }
-exports.configuracao = {
-    apenasCriador: false,
-    modulo: 'moderacao',
-    aliases: ['lock','unlock','destrancar'],
-    permissoesNecessarias: ['ADM'],
-    permissoesBot: ['MANAGE_CHANNELS']
-};
-
-exports.ajuda = {
-    nome: 'trancar',
-    descricao: 'Tranca/Destranca o canal atual para evitar ataques!',
-    usar: 'trancar/destrancar <#canal>',
-    exemplos: []
-};
+})

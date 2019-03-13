@@ -41,7 +41,19 @@ return new Canvas(400, 180)
 .setTextAlign("left")
 .addText(`test: ${level}`, 241, 136).toBuffer()
 }*/
-exports.run = async function(client, message, args) {/*
+module.exports = new (class Rank {
+    constructor(){
+            this.apenasCriador = true;
+            this.modulo ='utilitarios';
+            this.aliases = [];
+            this.permissoesNecessarias = [];
+            this.permissoesBot = [];
+            this.nome = 'rank';
+            this.descricao = 'Confira o nível e xp de alguém!';
+            this.usar = 'rank <@usuário>';
+            this.exemplos = ['@Djinn','376460601909706773']
+        }
+async run(client, message, args) {/*
     const attachment = new Discord.Attachment(await profile(message.member, message.member.local), 'perfil.png');
     message.channel.send(attachment)*/
     
@@ -118,17 +130,4 @@ exports.run = async function(client, message, args) {/*
             })
         })
 }
-exports.configuracao = {
-    apenasCriador: true,
-    modulo: 'utilitarios',
-    aliases: [],
-    permissoesNecessarias: [],
-    permissoesBot: []
-};
-
-exports.ajuda = {
-    nome: 'rank',
-    descricao: 'Confira o nível e xp de alguém!',
-    usar: 'rank <@usuário>',
-    exemplos: ['@Djinn','376460601909706773']
-};
+})

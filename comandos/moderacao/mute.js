@@ -1,7 +1,19 @@
 const util = require('../../utilitarios/util.js')
-module.exports.run = async (client,message,args) => {
+module.exports = new (class Mute {
+  constructor(){
+        this.apenasCriador = false,
+        this.modulo = 'moderacao',
+        this.aliases = ['silenciar','tempmute'],
+        this.permissoesNecessarias = ['MOD'],
+        this.permissoesBot = ['MANAGE_ROLES'],
+        this.name = 'mute',
+        this.descricao = 'Silencie o usuário do servidor.',
+        this.usar = 'mute <@usuário> <tempo em segundos> [motivo]',
+        this.exemplos = ['Djinn cansei dele','@Mee6 SPAM']
+      }
+async run(client,message,args) {
     let usuario = message.mentions.members.first() || message.guild.members.get(args[0])
-    if(!usuario) return client.emit('ajudaComando', message, this.ajuda, this.configuracao);
+    if(!usuario) return client.emit('ajudaComando', message, this)
     if(usuario == message.member) return client.emit("embedDescricao",message,"Você não pode usar esse comando em sí mesmo.",true)
     if(usuario.highestRole.position >= message.member.highestRole.position) return client.emit("embedDescricao",message,"Você não pode silenciar esse usuário porque ele tem cargo mais alto que o seu.",true)
     let role = message.guild.roles.find(r => r.name === "Silenciado");
@@ -42,17 +54,4 @@ module.exports.run = async (client,message,args) => {
                 util.punir(message.guild.id, usuario.id, motivo, message.author.id, 2, 'false', client)
                 return client.emit("embedDescricao",message,"Usuário silenciado com sucesso!",false)
 }
-exports.configuracao = {
-    apenasCriador: false,
-    modulo: 'moderacao',
-    aliases: ['silenciar','tempmute'],
-    permissoesNecessarias: ['MOD'],
-    permissoesBot: ['MANAGE_ROLES']
-};
-
-exports.ajuda = {
-    nome: 'mute',
-    descricao: 'Silencie o usuário do servidor.',
-    usar: 'mute <@usuário> <tempo em segundos> [motivo]',
-    exemplos: ['Djinn cansei dele','@Mee6 SPAM']
-};
+})

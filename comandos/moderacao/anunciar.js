@@ -1,6 +1,18 @@
 const Discord = require('discord.js');
-exports.run = async function(client, message, args) {
-    const filtro = m => m.author.id == message.author.id
+module.exports = new (class Anunciar {
+  constructor(){
+        this.apenasCriador = false,
+        this.modulo = 'moderacao',
+        this.aliases = ['anuncio','announce'],
+        this.permissoesNecessarias = ['MANAGE_MESSAGES','KICK_MEMBERS','BAN_MEMBERS'],
+        this.permissoesBot = [],
+        this.name = 'anunciar',
+        this.descricao = 'Anuncie no seu servidor, enviando um embed para o Canal de Anúncios.',
+        this.usar = 'anunciar <titulo>',
+        this.exemplos = ['Novidades no Servidor','Agora temos queijo no canal #queijos!']
+      }
+async run(client, message, args) {
+    const filtro = m => m.author.idz == message.author.id
     let titulo = args.join(" ")
     if(!titulo) return client.emit("embedDescricao",message,"Você não escolheu o título!",true)
     let desc
@@ -22,17 +34,4 @@ exports.run = async function(client, message, args) {
     .setTimestamp()
     message.channel.send({embed}).catch()
 }
-exports.configuracao = {
-    apenasCriador: false,
-    modulo: 'moderacao',
-    aliases: ['anuncio','announce'],
-    permissoesNecessarias: ['MANAGE_MESSAGES','KICK_MEMBERS','BAN_MEMBERS'],
-    permissoesBot: []
-};
-
-exports.ajuda = {
-    nome: 'anunciar',
-    descricao: 'Anuncie no seu servidor, enviando um embed para o Canal de Anúncios.',
-    usar: 'anunciar <titulo>',
-    exemplos: ['Novidades no Servidor','Agora temos queijo no canal #queijos!']
-};
+})

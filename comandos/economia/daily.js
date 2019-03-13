@@ -1,7 +1,20 @@
 const Discord = require('discord.js');
 const util = require('../../utilitarios/util.js')
 const Usuarios = require('../../database/usuario.js')
-exports.run = async function(client, message, args) {
+module.exports = new (class Daily {
+    constructor(){
+            this.apenasCriador = true;
+            this.modulo ='economia';
+            this.aliases = ['recompensadiaria','diaria'];
+            this.permissoesNecessarias = [];
+            this.permissoesBot = [];
+            this.nome = 'daily';
+            this.descricao = 'Moedas todos os dias';
+            this.usar = 'daily';
+            this.exemplos = []
+        }
+
+async run(client, message, args) {
     //const servidor = await extras.Servidor(message.guild.id,client)
     let moedas = ((Math.random() * 10 ) + 1)
     moedas = await moedas.toFixed(0)
@@ -47,20 +60,5 @@ exports.run = async function(client, message, args) {
         message.reply(embed) 
         return
     }
-    Usuarios.findon
 }
-
-exports.configuracao = {
-    apenasCriador: true,
-    modulo: 'economia',
-    aliases: ['recompensadiaria','diaria'],
-    permissoesNecessarias: [],
-    permissoesBot: []
-};
-
-exports.ajuda = {
-    nome: 'daily',
-    descricao: 'Moedas todos os dias',
-    usar: 'daily',
-    exemplos: []
-};
+})

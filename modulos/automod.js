@@ -13,8 +13,8 @@ var automod = await extras.Servidor(message.guild.id,client)
 if(!automod) return
 else automod = automod.automod
 
-if(message.author.id == '376460601909706773' /*&& client.checarPermissoesServidor(message) == 0*/){
-    if(automod.antispaminvite != 'true'){
+if(message.member.permissoesServidor == 0){
+    if(automod.antispaminvite){
              let convites = message.content.match(/discord(?:app\.com\/invite|\.gg(?:\/invite)?)\/([\w-]{2,255})/gi) || []
              if (message.content.match(/^https?:\/\/(www.youtube.com|youtube.com)\/playlist(.*)$/)){
              for(let e in message.embeds){
@@ -34,7 +34,7 @@ if(message.author.id == '376460601909706773' /*&& client.checarPermissoesServido
                 }
              if(convites.length > 0){
              message.delete().catch()
-             if(automod.autowarn != 'false'){
+             if(automod.autowarn){
              const convite = new Discord.RichEmbed()
              .setTitle(`Oops!`)   
              .setColor('#ffffff')
@@ -85,10 +85,10 @@ if(message.author.id == '376460601909706773' /*&& client.checarPermissoesServido
     }*/
     //--------MENÇÕES----------//
 
-    if(automod.antispammention != 'false'){
+    if(automod.antispammention){
         let mencao = message.mentions.members.size
         if(mencao > parseInt(automod.antispammention)) 
-        if(automod.autowarn == 'false'){
+        if(automod.autowarn){
         const mention = new Discord.RichEmbed()
         .setTitle(`Oops!`)   
         .setColor('#ffffff')

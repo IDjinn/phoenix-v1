@@ -1,8 +1,20 @@
 const Discord = require('discord.js');
 const moment = require('moment')
-exports.run = async function(client, message, args) {
+module.exports = new (class WarnList {
+    constructor(){
+            this.apenasCriador = true;
+            this.modulo ='moderacao';
+            this.aliases = ['listaavisos','listadeavisos'];
+            this.permissoesNecessarias = ['MOD'];
+            this.permissoesBot = [];
+            this.nome = 'warnlist';
+            this.descricao = 'Dê uma advertência à alguém!';
+            this.usar = 'warnlist <@usuário> [motivo]';
+            this.exemplos = []
+        }
+async run(client, message, args) {
     let membro = message.mentions.members.first() || message.guild.members.get(args[0])
-    if(!membro) return client.emit('ajudaComando', message, this.ajuda, this.configuracao);
+    if(!membro) return client.emit('ajudaComando', message, this)
     if(!membro.punicoes) return client.emit("embedDescricao",message,"Esse membro não tem punições!",true)
 
     let paginas = new Discord.Collection()
@@ -42,17 +54,4 @@ exports.run = async function(client, message, args) {
         })
     })
 }
-exports.configuracao = {
-    apenasCriador: true,
-    modulo: 'moderacao',
-    aliases: ['listaavisos','listadeavisos'],
-    permissoesNecessarias: ['MOD'],
-    permissoesBot: []
-};
-
-exports.ajuda = {
-    nome: 'warnlist',
-    descricao: 'Dê uma advertência à alguém!',
-    usar: 'warnlist <@usuário> [motivo]',
-    exemplos: []
-};
+})

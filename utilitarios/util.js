@@ -358,7 +358,7 @@ servidor.dispatcher.on("end", function(){
 }})}
 
 exports.pular = async (conexao, message, client, args) =>{
-  if(client.checarPermissoesServidor(message) > 0){
+  if(message.member.permissoesServidor > 0){
     await message.guild.dados.playList.shift()
     this.Tocar(message.member.voiceChannel,message, client, args)
     return await client.emit("embedDescricao",message,"Música Pulada!",true)
@@ -373,7 +373,7 @@ exports.sair = async (message, client) => {
     await message.member.voiceChannel.leave()
     return await client.emit("embedDescricao",message,"Saí do canal de voz!",false)
   }
-  else if(client.checarPermissoesServidor(message) == 0){
+  else if(message.member.permissoesServidor == 0){
     return await client.emit("embedDescricao",message,"Ainda tem músicas na Play List, não posso sair!",true)
   }
   else{

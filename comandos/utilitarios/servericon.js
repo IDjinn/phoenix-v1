@@ -1,6 +1,17 @@
 const Discord = require('discord.js')
-
-exports.run = async function(client, message, args) {
+module.exports = new (class ServerIcon {
+    constructor(){
+            this.apenasCriador = false;
+            this.modulo ='utilitarios';
+            this.aliases = ['guildicon'];
+            this.permissoesNecessarias = [];
+            this.permissoesBot = [];
+            this.nome = 'servericon';
+            this.descricao = 'Envia o ícone do servidor!';
+            this.usar = 'servericon [servidor]';
+            this.exemplos = []
+        }
+async run(client, message, args) {
     let guild = client.guilds.get(args[0]) || message.guild
     const embed = new Discord.RichEmbed()
     .setColor('#ffffff')
@@ -9,18 +20,4 @@ exports.run = async function(client, message, args) {
     .setTimestamp()
     return message.reply(embed)
 }
-
-exports.configuracao = {
-    apenasCriador: false,
-    modulo: 'utilitarios',
-    aliases: ['guildicon'],
-    permissoesNecessarias: [],
-    permissoesBot: []
-};
-
-exports.ajuda = {
-    nome: 'servericon',
-    descricao: 'Envia o ícone do servidor!',
-    usar: 'servericon [servidor]',
-    exemplos: []
-};
+})

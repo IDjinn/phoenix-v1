@@ -1,4 +1,16 @@
-exports.run = async function(client, message, args) {
+module.exports = new (class Luul {
+    constructor(){
+			this.apenasCriador = true;
+			this.modulo = 'photoshop';
+			this.aliases = ['especiais'];
+			this.permissoesNecessarias = [];
+			this.permissoesBot = [];
+			this.nome = 'luul';
+			this.descricao = 'Desbloqueie uma conquista do Minecraft!';
+			this.usar = 'luul [texto]';
+			this.exemplos = ['Um texto bem legal aqui']
+        }
+async run(client, message, args) {
     const { createCanvas, loadImage } = require('canvas');
     const request = require('node-superfetch');
     const path = require('path');
@@ -32,17 +44,4 @@ exports.run = async function(client, message, args) {
 		} catch (err) {return message.reply(`Oh no, an error occurred: \`${err.message}\`. Try again later!`)}
 
 }
-exports.configuracao = {
-    apenasCriador: true,
-    modulo: 'photoshop',
-    aliases: ['especiais'],
-    permissoesNecessarias: [],
-    permissoesBot: []
-};
-
-exports.ajuda = {
-    nome: 'luul',
-    descricao: 'Desbloqueie uma conquista do Minecraft!',
-    usar: 'luul [texto]',
-    exemplos: ['Um texto bem legal aqui']
-};
+})

@@ -1,4 +1,16 @@
-exports.run = async function(client, message, args) {
+module.exports = new (class Avatar {
+    constructor(){
+            this.apenasCriador = false;
+            this.modulo = 'utilitarios';
+            this.aliases = [];
+            this.permissoesNecessarias = [];
+            this.permissoesBot = [];
+            this.nome = 'avatar';
+            this.descricao = 'Mostra a imagem de avatar do usuário.';
+            this.usar = 'avatar [usuário]';
+            this.exemplos = ['@Djinn']
+        }
+async run(client, message, args) {
     const Discord = require('discord.js')
     const membro = message.mentions.users.first() || client.users.get(args[0]) || message.author
     const embed = new Discord.RichEmbed()
@@ -9,18 +21,5 @@ exports.run = async function(client, message, args) {
     .setFooter(`${message.author.tag}`, ` ${message.author.displayAvatarURL}`)
     .setTimestamp()
     message.reply(embed)
-}
-exports.configuracao = {
-    apenasCriador: false,
-    modulo: 'utilitarios',
-    aliases: [],
-    permissoesNecessarias: [],
-    permissoesBot: []
-};
-
-exports.ajuda = {
-    nome: 'avatar',
-    descricao: 'Mostra a imagem de avatar do usuário.',
-    usar: 'avatar [usuário]',
-    exemplos: ['@Djinn']
-};
+    }
+})

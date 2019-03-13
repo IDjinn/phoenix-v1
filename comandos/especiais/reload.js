@@ -1,4 +1,16 @@
-exports.run = async (client, message, args) => {
+module.exports = new (class Reload {
+    constructor(){
+            this.apenasCriador = true;
+            this.modulo ='especiais';
+            this.aliases = ['recarregar'];
+            this.permissoesNecessarias = [];
+            this.permissoesBot = [];
+            this.nome = 'reload';
+            this.descricao = 'beep boop';
+            this.usar = 'reload';
+            this.exemplos = []
+        }
+async run(client, message, args) {
     const constantes = require('../../utilitarios/constantes')
     if(!args[0] || args.join(' ').size < 1) return client.emit("embedDescricao",message,"Defina o nome do comando para reiniciar.",true);
     switch(args[0]){
@@ -46,26 +58,13 @@ exports.run = async (client, message, args) => {
     cmd = client.comandos.get(nomeComando) || client.comandos.get(client.aliases.get(nomeComando));
     if(!cmd)  return client.emit("embedDescricao",message,"Esse comando não existe!",true);
 
-    delete require.cache[require.resolve(`../${cmd.configuracao.modulo}/${cmd.ajuda.nome}.js`)];
+    delete require.cache[require.resolve(`../${cmd.modulo}/${cmd.nome}.js`)];
     client.comandos.delete(nomeComando);
-                let propriedades = require(`../${cmd.configuracao.modulo}/${cmd.ajuda.nome}.js`);
-                client.comandos.set(propriedades.ajuda.nome, propriedades);
-                propriedades.configuracao.aliases.forEach(alias => {
-                client.aliases.set(alias, propriedades.ajuda.nome)
+                let propriedades = require(`../${cmd.modulo}/${cmd.nome}.js`);
+                client.comandos.set(propriedades.nome, propriedades);
+                propriedades.aliases.forEach(alias => {
+                client.aliases.set(alias, propriedades.nome)
             });
             return client.emit("embedDescricao",message,`O comando ${nomeComando} foi reiniciado com sucesso!`,false);
   };
-exports.configuracao = {
-    apenasCriador: true,
-    modulo: 'especiais',
-    aliases: ['recarregar'],
-    permissoesNecessarias: [],
-    permissoesBot: []
-};
-
-exports.ajuda = {
-    nome: 'reload',
-    descricao: 'beep boop',
-    usar: 'reload',
-    exemplos: []
-};
+})

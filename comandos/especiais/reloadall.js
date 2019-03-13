@@ -1,7 +1,18 @@
+const index = require('../../index.js')
+module.exports = new (class RealoadAll {
+    constructor(){
+            this.apenasCriador = true;
+            this.modulo ='especiais';
+            this.aliases = ['recarregartudo'];
+            this.permissoesNecessarias = [];
+            this.permissoesBot = [];
+            this.nome = 'reloadall';
+            this.descricao = 'Recarrega totalmente o Bot.';
+            this.usar = 'reloadall';
+            this.exemplos = ['']
+        }
 
-    const index = require('../../index.js')
-    
-exports.run = async function(client, message, args) {
+async run(client, message, args) {
     const settings = client.settings
     await client.emit("embedDescricao",message,"Reiniciando...",false)
     client.destroy()
@@ -11,18 +22,4 @@ exports.run = async function(client, message, args) {
     else client.login(settings.token1)
     return client.emit("embedDescricao",message,"Reiniciado com sucesso!",false)
 } 
-
-exports.configuracao = {
-    apenasCriador: true,
-    modulo: 'especiais',
-    aliases: ['recarregartudo'],
-    permissoesNecessarias: [],
-    permissoesBot: []
-};
-
-exports.ajuda = {
-    nome: 'reloadall',
-    descricao: 'Recarrega totalmente o Bot.',
-    usar: 'reloadall',
-    exemplos: ['']
-};
+})

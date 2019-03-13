@@ -1,4 +1,16 @@
-exports.run = async function(client, message, args) {
+module.exports = new (class Afk {
+    constructor(){
+            this.apenasCriador = false;
+            this.modulo ='utilitarios';
+            this.aliases = [];
+            this.permissoesNecessarias = [];
+            this.permissoesBot = [];
+            this.nome = 'afk';
+            this.descricao = 'Fica ausente';
+            this.usar = 'afk [motivo]';
+            this.exemplos = ['fazer miojo','comprar pão']
+        }
+async run(client, message, args) {
     let motivo = args.join(" ")
     if(!motivo) motivo = "Motivo não expecificado!"
     client.afk[message.author.id] = {
@@ -9,20 +21,6 @@ exports.run = async function(client, message, args) {
     await Usuarios.findOneAndUpdate({id: message.author.id},{motivoAfk: motivo}, {upsert: false})
     client.emit("embedDescricao",message,"Você agora está afk por `" + motivo + "`, ao falar no chat sairá do modo afk!",false)
 }
-
+})
 const Usuarios = require('../../database/usuario')
 
-exports.configuracao = {
-    apenasCriador: false,
-    modulo: 'utilitarios',
-    aliases: [],
-    permissoesNecessarias: [],
-    permissoesBot: []
-};
-
-exports.ajuda = {
-    nome: 'afk',
-    descricao: 'Fica ausente',
-    usar: 'afk [motivo]',
-    exemplos: ['fazer miojo','comprar pão']
-};

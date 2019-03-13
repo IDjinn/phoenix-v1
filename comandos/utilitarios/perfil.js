@@ -1,8 +1,19 @@
 const Discord = require('discord.js');
 const constantes = require('../../utilitarios/constantes.js')
 const getXp = (nivel) => Math.floor(((nivel / 0.2) * (nivel / 0.3)) * Math.PI)
-
-exports.run = async function(client, message, args) {
+module.exports = new (class Perfil {
+    constructor(){
+            this.apenasCriador = false;
+            this.modulo ='utilitarios';
+            this.aliases = ['profile'];
+            this.permissoesNecessarias = [];
+            this.permissoesBot = [];
+            this.nome ='perfil';
+            this.descricao = 'Veja o perfil de alguém!';
+            this.usar = 'perfil <@usuário>';
+            this.exemplos = ['@Djinn','376460601909706773']
+        }
+async run(clienzt, message, args) {
 
     let mencionado = message.mentions.members.first() || message.guild.members.get(args[0]) || message.member
     let vip = 'Não é VIP!'
@@ -44,17 +55,4 @@ exports.run = async function(client, message, args) {
     }
     if(!mencionado)return client.emit("embedDescricao",message,"Desconheço essa pessoa! :(",true)
 }
-exports.configuracao = {
-    apenasCriador: false,
-    modulo: 'utilitarios',
-    aliases: ['profile'],
-    permissoesNecessarias: [],
-    permissoesBot: []
-};
-
-exports.ajuda = {
-    nome: 'perfil',
-    descricao: 'Veja o perfil de alguém!',
-    usar: 'perfil <@usuário>',
-    exemplos: ['@Djinn','376460601909706773']
-};
+})

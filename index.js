@@ -73,14 +73,12 @@ client.Moderacao = new Discord.Collection();
 client.Administracao = new Discord.Collection();
 client.Utilitarios = new Discord.Collection();
 client.Jogos = new Discord.Collection();
-client.Musica = new Discord.Collection();
 client.Imagens = new Discord.Collection();
 client.Economia = new Discord.Collection();
 client.Especiais = new Discord.Collection();
 client.Outros = new Discord.Collection();
 //
 
-client.Musica = new Discord.Collection()
 client.lang = require('./modulos/lang.js')('pt-BR')
 
 client.tags = new Discord.Collection()
@@ -238,31 +236,27 @@ exports.cache = async () => Cache()
 exports.atualizarComandos = async () => RegistrarComandos()
 
 async function RegistrarComandos(){
-    async function filtragem(modulo,c){
-        if(c.configuracao.apenasCriador == true && c.configuracao.modulo != 'especiais') return false
-        if(c.configuracao.modulo == modulo) return true
-    }
-    client.Diversao.comandos = client.comandos.map(c => filtragem('diversao',c) == true).join(', `'+ b.ajuda.nome +'`')
-    client.Moderacao.comandos = client.comandos.map(c => filtragem('moderacao',c) == true ).join(', `'+ b.ajuda.nome +'`')
-    client.Administracao.comandos = client.comandos.map(c => filtragem('administracao',c) == true ).join(', `'+ b.ajuda.nome +'`')
-    client.Utilitarios.comandos = client.comandos.map(c => filtragem('utilitarios',c) == true ).join(', `'+ b.ajuda.nome +'`')
-    client.Jogos.comandos = client.comandos.map(c => filtragem('jogos',c) == true ).join(', `'+ b.ajuda.nome +'`')
-    //client.Musica.comandos = client.comandos.map(c => filtragem('musica',c) == true ).join(', `'+ b.ajuda.nome +'`')
-    client.Economia.comandos = client.comandos.map(c => filtragem('economia',c) == true ).join(', `'+ b.ajuda.nome +'`')
-    client.Especiais.comandos = client.comandos.map(c => filtragem('apenasCriador',c) == true).join(', `'+ b.ajuda.nome +'`')
-    client.Outros.comandos = client.comandos.map(c => filtragem('outros',c) == true ).join(', `'+ b.ajuda.nome +'`')
-    client.Imagens.comandos = client.comandos.map(c => filtragem('photoshop',c) == true ).join(', `'+ b.ajuda.nome +'`')
+    client.Diversao.comandos = client.comandos.filter(c => c.modulo == 'diversao').filter(c=> c.apenasCriador == false).map(c => `${c.nome}`).join(', ')
+    client.Moderacao.comandos = client.comandos.filter(c => c.modulo == 'moderacao').filter(c=> c.apenasCriador == false).map(c => `${c.nome}`).join(', ')
+    client.Administracao.comandos = client.comandos.filter(c => c.modulo == 'administracao').filter(c=> c.apenasCriador == false).map(c => `${c.nome}`).join(', ')
+    client.Utilitarios.comandos = client.comandos.filter(c => c.modulo == 'utilitarios').filter(c=> c.apenasCriador == false).map(c => `${c.nome}`).join(', ')
+    client.Jogos.comandos = client.comandos.filter(c => c.modulo == 'jogos').filter(c=> c.apenasCriador == false).map(c => `${c.nome}`).join(', ')
+    //client.Musica.comandos = client.comandos.filter(c => c.modulo == 'musica').filter(c=> c.apenasCriador == false).map(c => `${c.nome}`).join(', ')
+    client.Economia.comandos = client.comandos.filter(c => c.modulo == 'economia').filter(c=> c.apenasCriador == false).map(c => `${c.nome}`).join(', ')
+    client.Especiais.comandos = client.comandos.filter(c=> c.apenasCriador == true).map(c => `${c.nome}`).join(', ')
+    client.Outros.comandos = client.comandos.filter(c => c.modulo == 'outros').filter(c=> c.apenasCriador == false).map(c => `${c.nome}`).join(', ')
+    client.Imagens.comandos = client.comandos.filter(c => c.modulo == 'photoshop').filter(c=> c.apenasCriador == false).map(c => `${c.nome}`).join(', ')
 
-    client.Diversao.fcmd = client.comandos.map(c => filtragem('diversao',c) == true ).join('\n`'+ b.ajuda.nome +'` -> ' + b.ajuda.descricao)
-    client.Moderacao.fcmd = client.comandos.map(c => filtragem('moderacao',c) == true ).join('\n`'+ b.ajuda.nome +'` -> ' + b.ajuda.descricao)
-    client.Administracao.fcmd = client.comandos.map(c => filtragem('administracao',c) == true ).join('\n`'+ b.ajuda.nome +'` -> ' + b.ajuda.descricao)
-    client.Utilitarios.fcmd = client.comandos.map(c => filtragem('utilitarios',c) == true, '\n`'+ c.ajuda.nome +'` -> ' + c.ajuda.descricao ).join('')
-    client.Jogos.fcmd = client.comandos.map(c => filtragem('jogos',c) == true ).join('\n`'+ b.ajuda.nome +'` -> ' + b.ajuda.descricao)
-    //client.Musica.fcmd = client.comandos.map(c => filtragem('musica',c) == true ).join('\n`'+ b.ajuda.nome +'` -> ' + b.ajuda.descricao)
-    client.Economia.fcmd = client.comandos.map(c => filtragem('economia',c) == true ).join('\n`'+ b.ajuda.nome +'` -> ' + b.ajuda.descricao)
-    client.Especiais.fcmd = client.comandos.map(c => filtragem('apenasCriador',c) == true).join('\n`'+ b.ajuda.nome +'` -> ' + b.ajuda.descricao)
-    client.Outros.fcmd = client.comandos.map(c => filtragem('outros',c) == true ).join('\n`'+ b.ajuda.nome +'` -> ' + b.ajuda.descricao)
-    client.Imagens.fcmd = client.comandos.map(c => filtragem('photoshop',c) == true ).join('\n`'+ b.ajuda.nome +'` -> ' + b.ajuda.descricao)
+    client.Diversao.fcmd = client.comandos.filter(c => c.modulo == 'diversao').filter(c=> c.apenasCriador == false).map(b => '`'+ b.ajuda.nome +'` -> ' + b.ajuda.descricao).join('\n')
+    client.Moderacao.fcmd = client.comandos.filter(c => c.modulo == 'moderacao').filter(c=> c.apenasCriador == false).map(b => '`'+ b.ajuda.nome +'` -> ' + b.ajuda.descricao).join('\n')
+    client.Administracao.fcmd = client.comandos.filter(c => c.modulo == 'administracao').filter(c=> c.apenasCriador == false).map(b => '`'+ b.ajuda.nome +'` -> ' + b.ajuda.descricao).join('\n')
+    client.Utilitarios.fcmd = client.comandos.filter(c => c.modulo == 'utilitarios').filter(c=> c.apenasCriador == false).map(b => '`'+ b.ajuda.nome +'` -> ' + b.ajuda.descricao).join('\n')
+    client.Jogos.fcmd = client.comandos.filter(c => c.modulo == 'jogos').filter(c=> c.apenasCriador == false).map(b => '`'+ b.ajuda.nome +'` -> ' + b.ajuda.descricao).join('\n')
+    //client.Musica.fcmd = client.comandos.filter(c => c.modulo == 'musica').filter(c=> c.apenasCriador == false).map(b => '`'+ b.ajuda.nome +'` -> ' + b.ajuda.descricao).join('\n')
+    client.Economia.fcmd = client.comandos.filter(c => c.modulo == 'economia').filter(c=> c.apenasCriador == false).map(b => '`'+ b.ajuda.nome +'` -> ' + b.ajuda.descricao).join('\n')
+    client.Especiais.fcmd = client.comandos.filter(c=> c.apenasCriador == true).map(b => '`'+ b.ajuda.nome +'` -> ' + b.ajuda.descricao).join('\n')
+    client.Outros.fcmd = client.comandos.filter(c => c.modulo == 'outros').filter(c=> c.apenasCriador == false).map(b => '`'+ b.ajuda.nome +'` -> ' + b.ajuda.descricao).join('\n')
+    client.Imagens.fcmd = client.comandos.filter(c => c.modulo == 'photoshop').filter(c=> c.apenasCriador == false).map(b => '`'+ b.ajuda.nome +'` -> ' + b.ajuda.descricao).join('\n')
 }
 
 const log = (msg) => {
@@ -275,17 +269,16 @@ let totalCmd = 0
 for(let modulo of modulos){
     fs.readdir(`./comandos/${modulo}/`, (err, arquivos) => {
     if (err) console.error(err);
-        arquivos.forEach(a => {
+        arquivos.forEach(cmd => {
             totalCmd = totalCmd + 1
-            let propriedades = require(`./comandos/${modulo}/${a}`);
-            log(`Carregando comando: "${propriedades.ajuda.nome}"...`);
-            client.comandos.set(propriedades.ajuda.nome, propriedades);
-            propriedades.configuracao.aliases.forEach(alias => {
-            client.aliases.set(alias, propriedades.ajuda.nome)
+            let comando = require(`./comandos/${modulo}/${cmd}`);
+            log(`Carregando comando: "${comando.nome}"...`);
+            client.comandos.set(comando.nome, comando);
+            comando.aliases.forEach(alias => {
+            client.aliases.set(alias, comando.nome)
         });
     });
 })}
-
 
 
 //Verificar permissões do usuário

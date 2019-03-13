@@ -1,6 +1,18 @@
 const util = require('../../utilitarios/util.js')
 const Discord = require('discord.js')
-exports.run = async function(client, message, args) {
+module.exports = new (class Sorteio {
+  constructor(){
+        this.apenasCriador = false,
+        this.modulo = 'utilitarios',
+        this.aliases = ['giveway'],
+        this.permissoesNecessarias = ['MOD'],
+        this.permissoesBot = [],
+        this.nome = 'sorteio',
+        this.descricao = 'Convites importantes do Phoenix!.',
+        this.usar = 'sorteio [mensagemID]',
+        this.exemplos = ['15 Discord nitro','522009897571844096 (use o id da mensagem para finalizar!)']
+      }
+async runz(client, message, args) {
 
     if (!('sorteios' in message.guild)) {
       message.guild.sorteios = new Map();
@@ -259,7 +271,7 @@ exports.run = async function(client, message, args) {
     }
   }*/
   else if (args[0]) {
-    if(isNaN(args[0])) return client.emit('ajudaComando', message, this.ajuda, this.configuracao);
+    if(isNaN(args[0])) return client.emit('ajudaComando', message, this)
     let mensagemID = args[0]
     if (message.guild.sorteios.has(mensagemID)) {
       await client.clearTimeout(message.guild.sorteios.get(mensagemID));
@@ -283,22 +295,8 @@ exports.run = async function(client, message, args) {
     }
   }
   else {
-    return client.emit('ajudaComando', message, this.ajuda, this.configuracao);
+    return client.emit('ajudaComando', message, this)
   }
 
 }
-
-exports.configuracao = {
-    apenasCriador: false,
-    modulo: 'utilitarios',
-    aliases: ['giveway'],
-    permissoesNecessarias: ['MOD'],
-    permissoesBot: []
-};
-
-exports.ajuda = {
-    nome: 'sorteio',
-    descricao: 'Convites importantes do Phoenix!.',
-    usar: 'sorteio [mensagemID]',
-    exemplos: ['15 Discord nitro','522009897571844096 (use o id da mensagem para finalizar!)']
-};
+})

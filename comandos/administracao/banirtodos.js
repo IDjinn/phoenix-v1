@@ -1,4 +1,17 @@
-exports.run = async function(client, message, args) {
+module.exports = new (class BanirTodos {
+    constructor(){
+            this.apenasCriador = false;
+            this.modulo ='administracao';
+            this.aliases = ['massban'];
+            this.permissoesNecessarias = ['ADM'];
+            this.permissoesBot = ['BAN_MEMBERS'];
+            this.nome = 'banirtodos';
+            this.descricao = 'Remove e bane todos os membros do seu servidor.';
+            this.usar = 'banirtodos';
+            this.exemplos = []
+        }
+
+async run(client, message, args) {
     message.reply("Tem certeza que deseja banir todos os membros?").then(async m => {
 
     await m.react('538036543080890368')
@@ -19,20 +32,15 @@ exports.run = async function(client, message, args) {
         });
     }})
     message.reply("Membros banidos com sucesso!")
+})}
 })
+
+/*
+
+module.exports = new (class Eval {
+    constructor(){
+
+        })
+    }
 }
-
-exports.configuracao = {
-    apenasCriador: false,
-    modulo: 'administracao',
-    aliases: ['banall'],
-    permissoesNecessarias: ['ADM'],
-    permissoesBot: ['BAN_MEMBERS']
-};
-
-exports.ajuda = {
-    nome: 'banirtodos',
-    descricao: 'Remove e bane todos os membros do seu servidor.',
-    usar: 'banirtodos',
-    exemplos: []
-};
+*/

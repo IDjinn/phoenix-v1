@@ -1,6 +1,18 @@
-exports.run = async function(client, message, args) {
+module.exports = new (class DarCargo {
+  constructor(){
+        this.apenasCriador = false,
+        this.modulo = 'moderacao',
+        this.aliases = ['giverole','addrole'],
+        this.permissoesNecessarias = ['MANAGE_ROLES'],
+        this.permissoesBot = ['MANAGE_ROLES'],
+        this.name = 'darcargo',
+        this.descricao = 'Dê um cargo à alguém!',
+        this.usar = 'darcargo <@user> <@cargo>',
+        this.exemplos = ['@Djinn @Membros']
+  }
+async run(client, message, args) {
   let usuario = message.guild.member(message.mentions.users.first()) || message.guild.members.get(args[0]) || message.member
-  if(!usuario) return client.emit('ajudaComando', message, this.ajuda, this.configuracao);
+  if(!usuario) return client.emit('ajudaComando', message, this)
   let cargo = message.mentions.roles.first()
   let novoCargo = message.guild.roles.find(c => c.name == cargo);
   if(!novoCargo)return client.emit("embedDescricao",message,"Não consegui encontrar esse cargo!",true)
@@ -8,17 +20,4 @@ exports.run = async function(client, message, args) {
   await(usuario.addRole(novoCargo.id));
   return message.reply(`O usuário ${usuario.username}, ganhou o cargo ${novoCargo.name}!`)
 }
-exports.configuracao = {
-    apenasCriador: false,
-    modulo: 'moderacao',
-    aliases: ['giverole','addrole'],
-    permissoesNecessarias: ['MANAGE_ROLES'],
-    permissoesBot: ['MANAGE_ROLES']
-};
-
-exports.ajuda = {
-    nome: 'darcargo',
-    descricao: 'Dê um cargo à alguém!',
-    usar: 'darcargo <@user> <@cargo>',
-    exemplos: ['@Djinn @Membros']
-};
+})

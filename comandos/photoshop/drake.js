@@ -1,4 +1,16 @@
-exports.run = async function(client, message, args) {
+module.exports = new (class Drake {
+    constructor(){
+            this.apenasCriador = false;
+            this.modulo ='photoshop';
+            this.aliases = [];
+            this.permissoesNecessarias = [];
+            this.permissoesBot = [];
+            this.nome = 'drake';
+            this.descricao = 'Faz o meme do drake com 2 usuários';
+            this.usar = 'drake <@usuario> <@usuario>';
+            this.exemplos = ['Um texto bem legal aqui']
+        }
+async run(client, message, args) {
     const { createCanvas, loadImage } = require('canvas');
     const request = require('node-superfetch');
     const path = require('path');
@@ -24,17 +36,4 @@ exports.run = async function(client, message, args) {
         return message.reply(`Oh no, an error occurred: \`${err.message}\`. Try again later!`);
     }
 }
-exports.configuracao = {
-    apenasCriador: false,
-    modulo: 'photoshop',
-    aliases: [],
-    permissoesNecessarias: [],
-    permissoesBot: []
-};
-
-exports.ajuda = {
-    nome: 'drake',
-    descricao: 'Faz o meme do drake com 2 usuários',
-    usar: 'drake <@usuario> <@usuario>',
-    exemplos: ['Um texto bem legal aqui']
-};
+})

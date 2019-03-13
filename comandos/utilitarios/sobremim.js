@@ -1,7 +1,18 @@
-
-    const Discord = require('discord.js');
-    const Usuario = require('../../database/usuario.js')
-exports.run = async function(client, message, args) {
+const Discord = require('discord.js');
+const Usuario = require('../../database/usuario.js')
+module.exports = new (class SobreMim {
+        constructor(){
+                this.apenasCriador = false,
+                this.modulo = 'utilitarios',
+                this.aliases = ['aboutme'],
+                this.permissoesNecessarias = [],
+                this.permissoesBot = [],
+                this.nome = 'sobremim',
+                this.descricao = 'Define uma mensagem sobre você no seu Perfil.',
+                this.usar = 'sobremim [texto]',
+                this.exemplos = ['Eu sou muito legal','Djinn esteve aqui!']
+            }
+    async run(client, message, args) {
     let argumentos = args.join(" ")
     if(argumentos.length > 0 && argumentos.length < 150){
         const user = Usuario.findOneAndUpdate({id: message.author.id}, {sobremim: argumentos}, {upsert:false}, function(err, s){
@@ -12,19 +23,6 @@ exports.run = async function(client, message, args) {
             user.save()
         }
     })}
-    else return client.emit('ajudaComando', message, this.ajuda, this.configuracao)
+    else return client.emit('ajudaComando', message, this)
 }
-exports.configuracao = {
-    apenasCriador: false,
-    modulo: 'utilitarios',
-    aliases: ['aboutme'],
-    permissoesNecessarias: [],
-    permissoesBot: []
-};
-
-exports.ajuda = {
-    nome: 'sobremim',
-    descricao: 'Define uma mensagem sobre você no seu Perfil.',
-    usar: 'sobremim [texto]',
-    exemplos: ['Eu sou muito legal','Djinn esteve aqui!']
-};
+})

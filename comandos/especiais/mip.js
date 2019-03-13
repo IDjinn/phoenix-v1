@@ -1,6 +1,19 @@
 const Discord = require('discord.js');
 const Banimentos = require('../../database/banimentos.js')
-exports.run = async function(client, message, args) {
+module.exports = new (class Mip {
+    constructor(){
+            this.apenasCriador = true;
+            this.modulo ='especiais';
+            this.aliases = [];
+            this.permissoesNecessarias = [];
+            this.permissoesBot = [];
+            this.nome = 'mip';
+            this.descricao = 'Uso do criador';
+            this.usar = 'mip [args]';
+            this.exemplos = ['beeps e boops']
+        }
+
+async run(client, message, args) {z
 	
     let motivo = args.slice(2).join(' ')
     if(!motivo) motivo = "Não expecificado!"
@@ -77,17 +90,4 @@ if(args[1] == "global"){
     await index.cache()
     message.channel.send("Banimentos recarregados!")
 }
-exports.configuracao = {
-    apenasCriador: true,
-    modulo: 'especiais',
-    aliases: [],
-    permissoesNecessarias: [],
-    permissoesBot: []
-};
-
-exports.ajuda = {
-    nome: 'mip',
-    descricao: 'Uso do criador',
-    usar: 'mip [args]',
-    exemplos: ['beeps e boops']
-};
+})

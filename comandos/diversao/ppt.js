@@ -1,6 +1,18 @@
-exports.run = async function(client, message, args) {
+module.exports = new (class PedraPapelTesoura {
+    constructor(){
+            this.apenasCriador = false;
+            this.modulo ='diversao';
+            this.aliases = ['rps','pedrapapeltesoura','jokenpo'];
+            this.permissoesNecessarias = [];
+            this.permissoesBot = [];
+            this.nome = 'ppt';
+            this.descricao = 'Joga uma partida de Pedra Papel Tesoura.';
+            this.usar = 'ppt <pedra/papel/tesoura>';
+            this.exemplos = []
+        }
+async run(client, message, args) {
     let escolha = args[0]
-    if(!escolha) return client.emit('ajudaComando', message, this.ajuda, this.configuracao);
+    if(!escolha) return client.emit('ajudaComando', message, this)
     let tipo = 0
     switch(escolha.toLowerCase()){
         case 'pedra':
@@ -27,17 +39,4 @@ exports.run = async function(client, message, args) {
         return client.emit("embedDescricao",message,ganhou,false)
     
 }
-exports.configuracao = {
-    apenasCriador: false,
-    modulo: 'diversao',
-    aliases: ['rps','pedrapapeltesoura','jokenpo'],
-    permissoesNecessarias: [],
-    permissoesBot: []
-};
-
-exports.ajuda = {
-    nome: 'ppt',
-    descricao: 'Joga uma partida de Pedra Papel Tesoura.',
-    usar: 'ppt <pedra/papel/tesoura>',
-    exemplos: []
-};
+})

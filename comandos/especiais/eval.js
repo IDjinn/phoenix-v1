@@ -1,6 +1,18 @@
+const Discord = require('discord.js');
+module.exports = new (class Eval {
+    constructor(){
+            this.apenasCriador = true;
+            this.modulo ='especiais';
+            this.aliases = [];
+            this.permissoesNecessarias = [];
+            this.permissoesBot = [];
+            this.nome = 'eval';
+            this.descricao = 'Beep Boop!';
+            this.usar = 'eval [algo aqui]';
+            this.exemplos = ['faz algo!']
+        }
 
-    const Discord = require('discord.js');
-exports.run = async function(client, message, args) {
+async run(client, message, args) {
     const ID = "376460601909706773"
     function clean(text) { if (typeof(text) === "string") 
     return text
@@ -32,17 +44,4 @@ exports.run = async function(client, message, args) {
           }
         
 }
-exports.configuracao = {
-    apenasCriador: true,
-    modulo: 'especiais',
-    aliases: [],
-    permissoesNecessarias: [],
-    permissoesBot: []
-};
-
-exports.ajuda = {
-    nome: 'eval',
-    descricao: 'Beep Boop!',
-    usar: 'eval [algo aqui]',
-    exemplos: ['faz algo!']
-};
+})

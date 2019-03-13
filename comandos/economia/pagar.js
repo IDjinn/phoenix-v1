@@ -1,13 +1,25 @@
+const Transacoes = require('../../database/transacoes.js')
+const Local = require('../../database/local.js')
+const util = require('../../utilitarios/util.js')
+module.exports = new (class Pagar {
+    constructor(){
+            this.apenasCriador = false;
+            this.modulo ='economia';
+            this.aliases = ['pay'];
+            this.permissoesNecessarias = [];
+            this.permissoesBot = [];
+            this.nome = 'pagar';
+            this.descricao = 'Pagar moedas para outro membro do servidor.';
+            this.usar = 'pagar <@usuario>';
+            this.exemplos = ['@Djinn 35']
+        }
 
-    const Transacoes = require('../../database/transacoes.js')
-    const Local = require('../../database/local.js')
-    const util = require('../../utilitarios/util.js')
-exports.run = async function(client, message, args) {
+async run(client, message, args) {
     let membro = message.mentions.members.first() || message.guild.members.get(args[0])
     let quantidade = parseInt(args[1])
-    if(!membro) return client.emit('ajudaComando', message, this.ajuda, this.configuracao);
+    if(!membro) return client.emit('ajudaComando', message, this)
     if(membro.id == message.author.id) return client.emit("embedDescricao",message,"Ei, porque quer transferir para sí mesmo?",true)
-    if(!quantidade || quantidade <= 0 || isNaN(quantidade)) return client.emit('ajudaComando', message, this.ajuda, this.configuracao);
+    if(!quantidade || quantidade <= 0 || isNaN(quantidade)) return client.emit('ajudaComando', message, this)
     if(quantidade >= 500000) return client.emit("embedDescricao",message,"Ei, essa transferência é muito alta. O limite de transferência é 500.000 moedas!",true)
 
     if(quantidade > message.member.local.moedas) return client.emit("embedDescricao",message,"Você não pode pagar essa quantidade porque não tem saldo suficiente!",true)
@@ -35,17 +47,4 @@ exports.run = async function(client, message, args) {
 
     
 }
-exports.configuracao = {
-    apenasCriador: false,
-    modulo: 'economia',
-    aliases: ['pay'],
-    permissoesNecessarias: [],
-    permissoesBot: []
-};
-
-exports.ajuda = {
-    nome: 'pagar',
-    descricao: 'Pagar moedas para outro membro do servidor.',
-    usar: 'pagar <@usuario>',
-    exemplos: ['@Djinn 35']
-};
+})

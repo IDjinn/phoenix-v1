@@ -1,7 +1,19 @@
-exports.run = async function(client, message, args) {
+module.exports = new (class Status {
+    constructor(){
+            this.apenasCriador = false;
+            this.modulo ='outros';
+            this.aliases = ['botinfo','info','infobot','estatisticas'];
+            this.permissoesNecessarias = [];
+            this.permissoesBot = [];
+            this.nome = 'status';
+            this.descricao = 'Verifique meu desempenho!';
+            this.usar = 'status';
+            this.exemplos = []
+        }
+async run(client, message, args) {
     const Discord = require('discord.js');
     var readyAt = client.readyAt.toString().split(' ');
-    var visto = 'Dia ' + readyAt[2] + ' de ' + readyAt[1] + ' de ' + readyAt[3] + '.'
+    var visto = 'Dizza ' + readyAt[2] + ' de ' + readyAt[1] + ' de ' + readyAt[3] + '.'
     var segundos = Math.floor(process.uptime() % 60)
     var minutos = Math.floor(process.uptime() / 60 % 60)
     var hora = Math.floor(process.uptime() / 3600)
@@ -26,18 +38,4 @@ Executei ${client.comandosExe} comandos até agora, e estou acordado faz ${hora}
 .setFooter(`${message.author.tag} • ` + visto , ` ${message.author.avatarURL}`)
 message.channel.send(embed)
 }
-
-exports.configuracao = {
-    apenasCriador: false,
-    modulo: 'outros',
-    aliases: ['botinfo','info','infobot','estatisticas'],
-    permissoesNecessarias: [],
-    permissoesBot: []
-};
-
-exports.ajuda = {
-    nome: 'status',
-    descricao: 'Verifique meu desempenho!',
-    usar: 'status',
-    exemplos: []
-};
+})

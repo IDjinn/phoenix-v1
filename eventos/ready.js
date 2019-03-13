@@ -137,9 +137,9 @@ for (let i in g) {
     }})
 }
 
-//Registrar comandos para o >ajuda
+/*Registrar comandos para o >ajuda
 index.atualizarComandos()
-.then(async () => {console.log("[INFO] - Comandos PRONTOS!")})
+.then(async () => {console.log("[INFO] - " + client.comandos.size + " Comandos PRONTOS!")})*/
 
 
 require('../modulos/dashboard')(client);

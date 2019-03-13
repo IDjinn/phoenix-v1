@@ -1,9 +1,22 @@
 const Discord = require('discord.js');
 const util = require('../../utilitarios/util.js')
-exports.run = async function(client, message, args) {
+module.exports = new (class Ban {
+    constructor(){
+            this.apenasCriador = false;
+            this.modulo ='moderacao';
+            this.aliases = ['banir'];
+            this.permissoesNecessarias = ['BAN_MEMBERS'];
+            this.permissoesBot = ['BAN_MEMBERS'];
+            this.nome = 'ban';
+            this.descricao = 'Bane o usuário do servidor.';
+            this.usar = 'ban <usuário> [motivo]';
+            this.exemplos = ['Mee6 ser um bot','Tatsu porque sim']
+        }
+
+async run(client, message, args) {
     const membro = message.mentions.members.first() || message.guild.members.get(args[0])
     let motivo = args.slice(1).join(" ");
-    if(!membro)return client.emit('ajudaComando', message, this.ajuda, this.configuracao);
+    if(!zmembro)return client.emit('ajudaComando', message, this)
     if(membro == message.member) return client.emit("embedDescricao",message,"Você não pode usar esse comando em sí mesmo.",true)
     if(!motivo) motivo = 'Motivo não expecificado.'
 
@@ -37,17 +50,4 @@ await message.channel.send(`Você deseja mesmo banir <@${membro.id}>? Caso sim, 
         })
     })
 }
-exports.configuracao = {
-    apenasCriador: false,
-    modulo: 'moderacao',
-    aliases: ['banir'],
-    permissoesNecessarias: ['BAN_MEMBERS'],
-    permissoesBot: ['BAN_MEMBERS']
-};
-
-exports.ajuda = {
-    nome: 'ban',
-    descricao: 'Bane o usuário do servidor.',
-    usar: 'ban <usuário> [motivo]',
-    exemplos: ['Mee6 ser um bot','Tatsu porque sim']
-};
+})

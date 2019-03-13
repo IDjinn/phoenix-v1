@@ -1,13 +1,24 @@
-
-    const Discord = require('discord.js');
-    const extras = require('../../utilitarios/extras.js')
-exports.run = async function(client, message, args) {
+const Discord = require('discord.js');
+const extras = require('../../utilitarios/extras.js')
+module.exports = new (class Ticket {
+        constructor(){
+                this.apenasCriador = false,
+                this.modulo = 'utilitarios',
+                this.aliases = [],
+                this.permissoesNecessarias = [],
+                this.permissoesBot = ['MANAGE_CHANNELS'],
+                this.nome = 'ticket',
+                this.descricao = 'Criando esse comando!',
+                this.usar = 'ticket <novo/fechar> <texto>',
+                this.exemplos = ['close','fechar','novo Problemas na minha conta!','novo Minha conta ainda não chegou!']
+            }
+    async run(client, message, args) {
     var servidor = await message.guild;
     var rand = await Math.floor(Math.random() * 10000 + 1)
     var nomecanal = await "ticket - " + rand
     var nomeCargo = await message.author.username + " - (Ticket#" + rand + ")";
     let tipo = args[0]
-    if(!tipo) return client.emit('ajudaComando', message, this.ajuda, this.configuracao);
+    if(!tipo) return client.emit('ajudaComando', message, this)
 switch(tipo.toLowerCase()){
     case 'new':
     case 'novo':{
@@ -64,23 +75,8 @@ switch(tipo.toLowerCase()){
         else{ return client.emit("embedDescricao",message,"Você não tem nenhum ticket pendente.",true)}
     }
     default:{
-        return client.emit('ajudaComando', message, this.ajuda, this.configuracao);
+        return client.emit('ajudaComando', message, this)
     }
 }
 }
-
-
-exports.configuracao = {
-    apenasCriador: false,
-    modulo: 'utilitarios',
-    aliases: [],
-    permissoesNecessarias: [],
-    permissoesBot: ['MANAGE_CHANNELS']
-};
-
-exports.ajuda = {
-    nome: 'ticket',
-    descricao: 'Criando esse comando!',
-    usar: 'ticket <novo/fechar> <texto>',
-    exemplos: ['close','fechar','novo Problemas na minha conta!','novo Minha conta ainda não chegou!']
-};
+})

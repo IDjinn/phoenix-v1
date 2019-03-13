@@ -1,4 +1,16 @@
-exports.run = async function(client, message, args) {
+module.exports = new (class Conquista {
+    constructor(){
+            this.apenasCriador = false;
+            this.modulo ='photoshop';
+            this.aliases = ['achievement'];
+            this.permissoesNecessarias = [];
+            this.permissoesBot = [];
+            this.nome = 'conquista';
+            this.descricao = 'Desbloqueie uma conquista do Minecraft!';
+            this.usar = 'conquista <texto>';
+            this.exemplos = ['Um texto bem legal aqui']
+        }
+async run(client, message, args) {
     const { createCanvas, loadImage, registerFont } = require('canvas');
     const path = require('path');
     const util = require('../../utilitarios/util.js')
@@ -16,17 +28,4 @@ exports.run = async function(client, message, args) {
 		ctx.fillText(await util.shortenText(ctx, text, 230), 60, 60);
         return await message.reply({ files: [{ attachment: canvas.toBuffer(), name: 'conquista.png' }] });
 }
-exports.configuracao = {
-    apenasCriador: false,
-    modulo: 'photoshop',
-    aliases: ['achievement'],
-    permissoesNecessarias: [],
-    permissoesBot: []
-};
-
-exports.ajuda = {
-    nome: 'conquista',
-    descricao: 'Desbloqueie uma conquista do Minecraft!',
-    usar: 'conquista <texto>',
-    exemplos: ['Um texto bem legal aqui']
-};
+})

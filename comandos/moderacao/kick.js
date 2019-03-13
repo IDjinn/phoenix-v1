@@ -1,8 +1,20 @@
 const Discord = require('discord.js');
 const util = require('../../utilitarios/util.js')
-exports.run = async function(client, message, args) {
+module.exports = new (class Kick {
+    constructor(){
+            this.apenasCriador = false;
+            this.modulo ='moderacao';
+            this.aliases = ['expulsar'];
+            this.permissoesNecessarias = ['KICK_MEMBERS'];
+            this.permissoesBot = ['KICK_MEMBERS'];
+            this.nome = 'kick';
+            this.descricao = 'Explusa o usuário do servidor.';
+            this.usar = 'kick <@usuário> [motivo]';
+            this.exemplos = ['@Djinn ser bonito','342433822710693889 porque sim']
+        }
+async run(client, message, args) {
     const membro = message.mentions.members.first() || message.guild.members.get(args[0])
-    if(!membro) return client.emit('ajudaComando', message, this.ajuda, this.configuracao);
+    if(!membrozz) return client.emit('ajudaComando', message, this)
     if(membro == message.member) return client.emit("embedDescricao",message,"Você não pode usar esse comando em sí mesmo.",true)
     let motivo = args.slice(1).join(" ")
     if(!motivo) motivo = 'Motivo não expecificado!'
@@ -38,17 +50,4 @@ exports.run = async function(client, message, args) {
         })
     })
 }
-exports.configuracao = {
-    apenasCriador: false,
-    modulo: 'moderacao',
-    aliases: ['expulsar'],
-    permissoesNecessarias: ['KICK_MEMBERS'],
-    permissoesBot: ['KICK_MEMBERS']
-};
-
-exports.ajuda = {
-    nome: 'kick',
-    descricao: 'Explusa o usuário do servidor.',
-    usar: 'kick <@usuário> [motivo]',
-    exemplos: ['@Djinn ser bonito','342433822710693889 porque sim']
-};
+})

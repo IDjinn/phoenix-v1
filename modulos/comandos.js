@@ -15,7 +15,7 @@ async function comandosSimilares(comando,client) {
 		await aliases.push(key)
 	}
 	await client.comandos.forEach(c => {
-		if(similar.compareTwoStrings(c.ajuda.nome.toString(), comando.toString()) > 0.65) comandos.push(c.ajuda.nome.toString())
+		if(similar.compareTwoStrings(c.nome.toString(), comando.toString()) > 0.65) comandos.push(c.nome.toString())
 	}); 
 	await aliases.forEach(a => {
 		if(similar.compareTwoStrings(a.toString(), comando.toString()) > 0.65) comandos.push(a.toString())
@@ -28,18 +28,18 @@ module.exports = async (message) => {
 	let servidor = message.guild.dados || client.servidores[message.guild.id] || await extras.Servidor(message.guild.id,client)
 	let prefixo = servidor.prefixo
 
-	if(message.content.startsWith(`<@${client.user.id}>`) && message.content.length <= 22) return client.emit("oopsEmbed",message,`Olá, meu nome é Phoenix, meu prefixo nesse servidor é \`${servidor.prefixo}\` e para ver todos os meus comandos use \`${servidor.prefixo}ajuda\`!`,false)
+	if(message.guild) if(message.content.startsWith(message.guild.me.toString()) && message.content.length <= 22) return client.emit("oopsEmbed",message,`Olá, meu nome é Phoenix, meu prefixo nesse servidor é \`${servidor.prefixo}\` e para ver todos os meus comandos use \`${servidor.prefixo}ajuda\`!`,false)
     
 	let args = message.content.split(' ');
 	let command = args.shift().slice(prefixo.length);
 	if(command) command = command.toLowerCase()
 
-	if (!message.content.startsWith(prefixo) && !message.content.startsWith(`<@${client.user.id}>`)) return;
+	if (!message.content.startsWith(prefixo) && !message.content.startsWith(message.guild.me.toString())) return;
 
     
 	try {
 		let cmd = client.comandos.get(command) || client.comandos.get(client.aliases.get(command))
-		if(!cmd) {
+		if(!cmd){
 			let mensagem = await comandosSimilares(command,client)
 			if(mensagem.length > 0){
 			mensagem = mensagem.join('\n•')
@@ -50,10 +50,10 @@ module.exports = async (message) => {
 			return message.reply(similares)
 			}
 			message.react('538036569060278273').catch()
-		}
-		if (cmd) {
+		 }
+		else {
 			if(servidor.canais.comandos != "false"){
-				if(message.channel.id != servidor.canais.comandos && client.checarPermissoesServidor(message) == 0){
+				if(message.channel.id != servidor.canais.comandos && message.member.permissoesServidor == 0){
 					await message.delete().catch()
 					return client.emit("oopsEmbed",message,`Você só pode usar comandos no canal <#${servidor.canais.comandos}>!`,true)
 				}
@@ -108,28 +108,28 @@ module.exports = async (message) => {
 			}, 4000);
 		}
 
-			if(cmd.configuracao.apenasCriador == true && message.author.id != '376460601909706773'){
+			if(cmd.apenasCriador == true && message.author.id != '376460601909706773'){
 				await message.delete().catch()
 				return client.emit("oopsEmbed",message,"Apenas o criador tem permissão para executar esse comando!",true)
 			}
 
-			if(cmd.configuracao.permissoesNecessarias){
-				if (client.permissao(message,cmd.configuracao.permissoesNecessarias) == false  && message.author.id != '376460601909706773'){
+			if(cmd.permissoesNecessarias){
+				if (client.permissao(message,cmd.permissoesNecessarias) == false  && message.author.id != '376460601909706773'){
 				await message.delete().catch()
 				let lista = " "
-				for(let i in cmd.configuracao.permissoesNecessarias){
-					lista = lista + permissoes[cmd.configuracao.permissoesNecessarias[i]] + ", "
+				for(let i in cmd.permissoesNecessarias){
+					lista = lista + permissoes[cmd.permissoesNecessarias[i]] + ", "
 				}
 				return client.emit("oopsEmbed",message,`Você precisa de alguma permissão como \`${lista}\` para poder usar esse comando!`,true)
 			}
 		}
 
-			if(cmd.configuracao.permissoesBot){
-				if (client.permissaoBot(message,cmd.configuracao.permissoesBot) == false/* && message.author.id != '376460601909706773'*/){
+			if(cmd.permissoesBot){
+				if (client.permissaoBot(message,cmd.permissoesBot) == false/* && message.author.id != '376460601909706773'*/){
 				 await message.delete().catch()
 				let lista = " "
-				for(let i in cmd.configuracao.permissoesBot){
-					lista = lista + permissoes[cmd.configuracao.permissoesBot[i]] + ", "
+				for(let i in cmd.permissoesBot){
+					lista = lista + permissoes[cmd.permissoesBot[i]] + ", "
 				}
 				return client.emit("oopsEmbed",message,`Eu preciso ter permissão de \`${lista}\` para poder executar esse comando!`,true)
 			}
@@ -141,7 +141,6 @@ module.exports = async (message) => {
 			client.comandosExe = client.comandosExe + 1
 			//message.delete().catch()
 		}
-		else{ }
 	}
 		catch (err) {
 		console.log(err)

@@ -1,8 +1,20 @@
 const util = require('../../utilitarios/util.js')
 const TempRole = require('../../database/temprole')
-exports.run = async function(client, message, args) {
+module.exports = new (class TempRole {
+  constructor(){
+        this.apenasCriador = false;
+        this.modulo = 'administracao';
+        this.aliases = [];
+        this.permissoesNecessarias = ['ADM'];
+        this.permissoesBot = ['MANAGE_ROLES'];
+        this.nome = 'temprole';
+        this.descricao = 'Dá um cargo para alguém durante um determinado tempo';
+        this.usar = 'temprole <@usuario>';
+        this.exemplos = ['@Djinn'];
+      }
+  async run(client, message, args) {
     let membro = message.mentions.members.first() || message.guild.members.get(args[0])
-    if(!membro) return client.emit('ajudaComando', message, this.ajuda, this.configuracao);
+    if(!membro) return client.emit('ajudaComando', message, this)
 
     await message.reply(`Qual cargo deseja dar para ${membro.displayName}, e por quanto tempo?\nExemplo: \`@Vip 10 dias\``)
     
@@ -12,7 +24,7 @@ exports.run = async function(client, message, args) {
           let m = c.first()
           let split = m.content.split(' ')
           let role = m.mentions.roles.first() || m.guild.roles.get(split[0])
-          if(!role) return client.emit('ajudaComando', message, this.ajuda, this.configuracao);
+          if(!role) return client.emit('ajudaComando', message, this)
 
           let tempo = split.slice(1).join(" ")
           tempo = await util.converterData(tempo)
@@ -40,18 +52,4 @@ exports.run = async function(client, message, args) {
         })
       .catch();
 }
-
-exports.configuracao = {
-    apenasCriador: false,
-    modulo: 'administracao',
-    aliases: [],
-    permissoesNecessarias: ['ADM'],
-    permissoesBot: ['MANAGE_ROLES']
-};
-
-exports.ajuda = {
-    nome: 'temprole',
-    descricao: 'Dá um cargo para alguém durante um determinado tempo',
-    usar: 'temprole <@usuario>',
-    exemplos: ['@Djinn']
-};
+})

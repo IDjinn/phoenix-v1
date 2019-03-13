@@ -1,7 +1,18 @@
 const constantes = require('../../utilitarios/constantes.js')
 const Discord = require('discord.js');
-
-exports.run = async function(client, message, args) {
+module.exports = new (class ServerInfo {
+    constructor(){
+            this.apenasCriador = false;
+            this.modulo ='utilitarios';
+            this.aliases = ['guildinfo'];
+            this.permissoesNecessarias = [];
+            this.permissoesBot = [];
+            this.nome = 'serverinfo';
+            this.descricao = 'Mostra informações do servidor.';
+            this.usar = 'serverinfo [servidor]';
+            this.exemplos = []
+        }
+async run(client, message, args) {
     let servidor = client.guilds.get(args[0]) || message.guild
     var createdAt = servidor.createdAt.toString().split(' ');
     var visto = 'Dia ' + createdAt[2] + ' de ' + createdAt[1] + ' de ' + createdAt[3] + '.' 
@@ -31,17 +42,4 @@ exports.run = async function(client, message, args) {
     .setTimestamp()
     return message.channel.send(embed) 
 }
-exports.configuracao = {
-    apenasCriador: false,
-    modulo: 'utilitarios',
-    aliases: ['guildinfo'],
-    permissoesNecessarias: [],
-    permissoesBot: []
-};
-
-exports.ajuda = {
-    nome: 'serverinfo',
-    descricao: 'Mostra informações do servidor.',
-    usar: 'serverinfo [servidor]',
-    exemplos: []
-};
+})

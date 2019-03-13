@@ -1,7 +1,19 @@
-    const Discord = require('discord.js')
-    const util = require('../../utilitarios/util.js')
-
-exports.run = async function(client, message, args) {
+const Discord = require('discord.js')
+const util = require('../../utilitarios/util.js')
+module.exports = new (class Quizz {
+      constructor(){
+            this.apenasCriador = false;
+            this.modulo ='moderacao';
+            this.aliases = [];
+            this.permissoesNecessarias = ['ADM'];
+            this.permissoesBot = [];
+            this.nome = 'quizz';
+            this.descricao = 'Cria um evento quizz no canal.';
+            this.usar = 'quizz';
+            this.exemplos = []
+          }
+          
+  async run(client, messzage, args) {
     await message.delete().catch()
     const usuario = await message.author.send("Qual palavra você deseja?")
     
@@ -54,17 +66,4 @@ exports.run = async function(client, message, args) {
         }
       );
 };
-exports.configuracao = {
-    apenasCriador: false,
-    modulo: 'moderacao',
-    aliases: [],
-    permissoesNecessarias: ['ADM'],
-    permissoesBot: []
-};
-
-exports.ajuda = {
-    nome: 'quizz',
-    descricao: 'Cria um evento quizz no canal.',
-    usar: 'quizz',
-    exemplos: []
-};
+})

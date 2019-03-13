@@ -129,7 +129,7 @@ Porcentagem = message.author.raider.porcentagem
 
     if(Porcentagem > 75){
         //Banir usuário
-        if(message.guild.dados.automod == 'true'){
+        if(message.guild.dados.automod){
         if(message.author.id != constantes.dono.id) {
             try{await message.member.ban("Raider")}catch{
         message.member.ban("RAID!").catch(client.channels.get(constantes.phoenix.automod)
@@ -147,7 +147,7 @@ Porcentagem = message.author.raider.porcentagem
         client.channels.get(constantes.phoenix.automod).send(embedRaid)
 }
 
-if(Date.now() > tempo || client.checarPermissoesServidor(message)) message.author.raider = {
+if(Date.now() > tempo || message.member.permissoesServidor > 0) message.author.raider = {
         porcentagem: (Porcentagem - 15) < 0 ? 0 : Porcentagem - 15,
         tempo: Date.now()
 }

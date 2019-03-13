@@ -1,7 +1,20 @@
 const Timer = require('../../database/timers.js')
 const Temporizador = require('../../modulos/timers.js')
 const util = require('../../utilitarios/util.js')
-exports.run = async function(client, message, args) {
+module.exports = new (class Timer {
+  constructor(){
+        this.apenasCriador = true;
+        this.modulo = 'administracao';
+        this.aliases = [];
+        this.permissoesNecessarias = [];
+        this.permissoesBot = [];
+        this.nome = 'timer';
+        this.descricao = 'Cria um temporizador para ações bem úteis!';
+        this.usar = 'timer';
+        this.exemplos = [];
+      }
+
+  async run(client, message, args) {
   let reacoes = ['538036569060278273','538036543080890368']
   const filtro = m => m.author.id == message.author.id
   const filtroCancelar = (r,u) => reacoes.includes(r.emoji.id) && u.id === message.author.id
@@ -133,18 +146,4 @@ else return message.channel.send("Operação Cancelada.")
   return message.channel.send("Configurado com sucesso!")
 
 }
-
-exports.configuracao = {
-    apenasCriador: true,
-    modulo: 'administracao',
-    aliases: [],
-    permissoesNecessarias: [],
-    permissoesBot: []
-};
-
-exports.ajuda = {
-    nome: 'timer',
-    descricao: 'Cria um temporizador para ações bem úteis!',
-    usar: 'timer',
-    exemplos: []
-};
+})

@@ -1,8 +1,20 @@
 const npm = require('api-npm')
 const Discord = require('discord.js')
-exports.run = async function(client, message, args) {
+module.exports = new (class Npm {
+  constructor(){
+        this.apenasCriador = true,
+        this.modulo = 'utilitarios',
+        this.aliases = [],
+        this.permissoesNecessarias = [],
+        this.permissoesBot = [],
+        this.nome = 'npm',
+        this.descricao = 'Confira um packge do npm!',
+        this.usar = 'npm <packge>',
+        this.exemplos = ['discord.js']
+      }
+async run(client, message, args) {
     let pacote = args.join(' ')
-    if(!pacote) return client.emit('ajudaComando', message, this.ajuda, this.configuracao);
+    if(!pacote) return client.emit('ajudaComando', message, this)
 
     npm.getdetails(pacote, data => {
       if (data.name) {
@@ -17,17 +29,4 @@ exports.run = async function(client, message, args) {
       }
     })
 }
-exports.configuracao = {
-    apenasCriador: true,
-    modulo: 'utilitarios',
-    aliases: [],
-    permissoesNecessarias: [],
-    permissoesBot: []
-};
-
-exports.ajuda = {
-    nome: 'npm',
-    descricao: 'Confira um packge do npm!',
-    usar: 'npm <packge>',
-    exemplos: ['discord.js']
-};
+} )

@@ -1,9 +1,21 @@
 const Discord = require('discord.js');
 const permissoes = require('../../utilitarios/permissoes.json')
 const util = require('../../utilitarios/util.js')
-    
-exports.run = async (client, message, args) => {
-    return message.reply("Desculpe, mas atualmente esse comando está desativado!")
+module.exports = new (class Comandos {
+    constructor(){
+            this.apenasCriador = false;
+            this.modulo ='outros',
+            this.aliases = ['comand','commands','cmds','comando'],
+            this.permissoesNecessarias = [],
+            this.permissoesBot = [],
+            this.nome = 'comandos',
+            this.descricao = 'Mostra todos os comandos do Phoenix.',
+            this.usar = 'comandos',
+            this.exemplos = []
+        }
+
+async run(client, message, args) {
+    if(message.author.id != '376460601909706773') return message.reply("Desculpe, mas atualmente esse comando está desativado!")
     let prefixo = client.servidores[message.guild.id].prefixo || ">"
     const embed = new Discord.RichEmbed()
     .setTitle(`Ajuda ${client.user.username}`)   
@@ -119,18 +131,4 @@ exports.run = async (client, message, args) => {
         }
     }).catch(e => {if(e.code == 50007)message.reply("Parece que sua DM está desativada, para usar esse comando, desbloqueie ela para mim ;)")})
 }   
-
-exports.configuracao = {
-    apenasCriador: false,
-    modulo: 'outros',
-    aliases: ['comand','commands','cmds','comando'],
-    permissoesNecessarias: [],
-    permissoesBot: []
-};
-    
-exports.ajuda = {
-    nome: 'comandos',
-    descricao: 'Mostra todos os comandos do Phoenix.',
-    usar: 'comandos',
-    exemplos: []
-};
+})

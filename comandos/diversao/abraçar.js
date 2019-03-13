@@ -1,4 +1,16 @@
-exports.run = async function(client, message, args) {
+module.exports = new (class Abracar {
+    constructor(){
+            this.apenasCriador = false;
+            this.modulo ='diversao';
+            this.aliases = ['abraço','abraco','abracar'];
+            this.permissoesNecessarias = [];
+            this.permissoesBot = [] ;
+            this.nome = 'abraçar';
+            this.descricao = 'Abraça alguém >.<';
+            this.usar = 'abraçar [usuário]';
+            this.exemplos = ['@Djinn','376460601909706773']
+        }
+async run(client, message, args) {
 const Discord = require('discord.js');
 var huge = ['https://cdn.discordapp.com/attachments/414768514512060417/414768524704219136/tumblr_o4gzpr5Da11vnh6hco1_500.png']
 var gif = huge[Math.floor(Math.random() * huge.length)];
@@ -12,18 +24,4 @@ const embed = new Discord.RichEmbed()
 .setImage(gif)
 message.channel.send(embed)
 }
-
-exports.configuracao = {
-    apenasCriador: false,
-    modulo: 'diversao',
-    aliases: ['abraço','abraco','abracar'],
-    permissoesNecessarias: [],
-    permissoesBot: []
-};
-
-exports.ajuda = {
-    nome: 'abraçar',
-    descricao: 'Abraça alguém >.<',
-    usar: 'abraçar [usuário]',
-    exemplos: ['@Djinn','376460601909706773']
-};
+})

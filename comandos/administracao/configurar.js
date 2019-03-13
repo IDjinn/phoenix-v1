@@ -1,7 +1,20 @@
 const Servidor = require('../../database/servidor.js')
 const Discord = require('discord.js');
 const constantes = require('../../utilitarios/constantes.js')
-exports.run = async function(client, message, args) {
+module.exports = new (class Configurar {
+    constructor(){
+            this.apenasCriador = false;
+            this.modulo ='administracao';
+            this.aliases = ['config'];
+            this.permissoesNecessarias = ['MANAGE_GUILD','MANAGE_ROLES'];
+            this.permissoesBot = [] ;
+            this.nome = 'configurar';
+            this.descricao = 'Mostra/Edita as configurações do servidor para o Phoenix.';
+            this.usar = 'configurar [tipo] [valor]';
+            this.exemplos = ['#canal-contador contador','#entrada entrada','lista','@Verificado verificado']
+        }
+
+async run(client, message, args) {
     var prefixo = await client.servidores[message.guild.id].prefixo
 
     let canal = message.mentions.channels.first()
@@ -261,18 +274,4 @@ message.reply("Ei! Informamos que atualmente esse comando foi desativado, ainda 
     break;
 }
 }
-
-exports.configuracao = {
-    apenasCriador: false,
-    modulo: 'administracao',
-    aliases: ['config'],
-    permissoesNecessarias: ['MANAGE_GUILD','MANAGE_ROLES'],
-    permissoesBot: []
-};
-
-exports.ajuda = {
-    nome: 'configurar',
-    descricao: 'Mostra/Edita as configurações do servidor para o Phoenix.',
-    usar: 'configurar [tipo] [valor]',
-    exemplos: ['#canal-contador contador','#entrada entrada','lista','@Verificado verificado']
-};
+})

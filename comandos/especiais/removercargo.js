@@ -1,6 +1,19 @@
-exports.run = async function(client, message, args) {
+  module.exports = new (class RemoverCargo {
+    constructor(){
+            this.apenasCriador = false;
+            this.modulo ='especiais';
+            this.aliases = ['takerole','removerole'];
+            this.permissoesNecessarias = ['ADM'];
+            this.permissoesBot = ['MANAGE_ROLES'];
+            this.nome = 'removercargo';
+            this.descricao = 'Tire um cargo à alguém!';
+            this.usar = 'removercargo @user @cargo';
+            this.exemplos = ['@Djinn @Membros']
+        }
+
+async run(client, message, args) {
     let usuario = message.guild.member(message.mentions.users.first()) || message.guild.members.get(args[0]);
-    if(!usuario) return client.emit('ajudaComando', message, this.ajuda, this.configuracao);
+    if(!usuario) return client.emit('ajudaComando', message, this)
     let cargo = message.mentions.roles.first()
     let novoCargo = message.guild.roles.find(c => c.name == cargo);
     if(!novoCargo) return client.emit("embedDescricao",message,"Não consegui encontrar esse cargo!",true)
@@ -8,18 +21,4 @@ exports.run = async function(client, message, args) {
     await(usuario.removeRole(novoCargo.id));
     return client.emit("embedDescricao",message,`O usuário ${usuario.username}, perdeu o cargo ${novoCargo.name}!`,false)
   }
-  
-  exports.configuracao = {
-      apenasCriador: false,
-      modulo: 'especiais',
-      aliases: ['takerole','removerole'],
-      permissoesNecessarias: ['ADM'],
-      permissoesBot: ['MANAGE_ROLES']
-  };
-  
-  exports.ajuda = {
-      nome: 'removercargo',
-      descricao: 'Tire um cargo à alguém!',
-      usar: 'removercargo @user @cargo',
-      exemplos: ['@Djinn @Membros']
-  };
+})

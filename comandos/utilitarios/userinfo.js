@@ -1,4 +1,16 @@
-exports.run = async function(client, message, args) {
+module.exports = new (class UserInfo {
+    constructor(){
+            this.apenasCriador = false;
+            this.modulo ='utilitarios';
+            this.aliases = [];
+            this.permissoesNecessarias = [];
+            this.permissoesBot = [];
+            this.nome = 'userinfo';
+            this.descricao = 'Mostra informações do usuário.';
+            this.usar = 'userinfo <@usuário>';
+            this.exemplos = ['@Djinn']
+        }
+async run(client, message, args) {
     const Discord = require('discord.js');
 
     const user = message.mentions.users.first() || client.users.get(args[0]) || client.users.find(u => u.username.match(args.join(" "))) || message.author
@@ -20,17 +32,4 @@ exports.run = async function(client, message, args) {
     //client.channels.get('411668307037650946').send(`**usuário** ${message.author.tag} \`${message.author.id}\` **guild** ${message.guild} **canal** ${message.channel} **comando** ${message.content}\n- - - - - - - - - - - - - - - - - - - - - - -`)
    
 }
-exports.configuracao = {
-    apenasCriador: false,
-    modulo: 'utilitarios',
-    aliases: [],
-    permissoesNecessarias: [],
-    permissoesBot: []
-};
-
-exports.ajuda = {
-    nome: 'userinfo',
-    descricao: 'Mostra informações do usuário.',
-    usar: 'userinfo <@usuário>',
-    exemplos: ['@Djinn']
-};
+})

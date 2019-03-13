@@ -1,6 +1,18 @@
 const ReactionRole = require('../../database/reaction.js')
+module.exports = new (class ReactionRole {
+  constructor(){
+        this.apenasCriador = false;
+        this.modulo ='administracao';
+        this.aliases = ['rr'];
+        this.permissoesNecessarias = ['ADM'],
+        this.permissoesBot = ['MANAGE_ROLES'];
+        this.nome = 'reactionrole';
+        this.descricao = 'Configura um reaction-role';
+        this.usar = 'reactionrole';
+        this.exemplos = ['']
+      }
 
-exports.run = async function(client, message, args) {
+async run(client, message, args) {
     const filter = (reaction, user) => user.id === message.author.id
     const filtro = m => m.author.id == message.author.id
 
@@ -86,19 +98,4 @@ exports.run = async function(client, message, args) {
       })})
     })
 })
-}
-
-exports.configuracao = {
-    apenasCriador: false,
-    modulo: 'administracao',
-    aliases: ['rr'],
-    permissoesNecessarias: ['ADM'],
-    permissoesBot: ['MANAGE_ROLES']
-};
-
-exports.ajuda = {
-    nome: 'reactionrole',
-    descricao: 'Configura um reaction-role',
-    usar: 'reactionrole',
-    exemplos: ['']
-};
+}})

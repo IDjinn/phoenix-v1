@@ -22,27 +22,23 @@ const comandos = require('../modulos/comandos.js')
 
 
 module.exports = async message => {
-	if (message.author.bot || message.channel.type != 'text') return;
+	if (message.author.bot || message.channel.type != 'text' || message.type != 'DEFAULT') return;
 
 	const client = message.client;
 
 	//Servidor
     let servidor = message.guild.dados || client.servidores[message.guild.id] || await extras.Servidor(message.guild.id,client)
+	if(!message.member.permissoesServidor) message.member.permissoesServidor = client.checarPermissoesServidor(message)
 	
 	//Moderação
-	bans(client,message)
 	await automod(client,message)
 
 	//Definir usuário
 	let usuario = message.author.dados || client.usuarios[message.guild.id] || await extras.Usuario(message.author.id,client)
-	let membro = message.member.local || await extras.Local(message.author.id, message.guild.id, client)
-
-	//Sugestão
-	if(client.canalSugestao.has(message.channel.id)){
-		await message.react('538036543080890368').catch()
-		await message.react('538036569060278273').catch()
-		await message.react('❓').catch()
-	}		
+	let membro = message.member.local || await extras.Local(message.author.id, message.guild.id, client)	
+	
+	//Banimentos do bot
+	bans(client,message)
 
 	//Comandos
 	comandos(message)
@@ -55,5 +51,12 @@ module.exports = async message => {
 
 	//Anti-Raider
 	antiRaider(client, message, servidor)
+	
+	//Sugestão
+	if(client.canalSugestao.has(message.channel.id)){
+		await message.react('538036543080890368').catch()
+		await message.react('538036569060278273').catch()
+		await message.react('❓').catch()
+	}	
 
 };

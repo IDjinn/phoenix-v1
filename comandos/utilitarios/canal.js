@@ -1,4 +1,16 @@
-exports.run = async function(client, message, args) {
+module.exports = new (class Canal {
+    constructor(){
+            this.apenasCriador = false;
+            this.modulo ='utilitarios';
+            this.aliases = ['channel'];
+            this.permissoesNecessarias = [];
+            this.permissoesBot = [];
+            this.nome = 'canal';
+            this.descricao = 'Veja informações de tal canal!';
+            this.usar = 'canal #canal';
+            this.exemplos = []
+        }
+async run(client, message, args) {
     const Discord = require('discord.js')
     const moment = require('moment')
     const types = {
@@ -22,17 +34,4 @@ exports.run = async function(client, message, args) {
         .addField('❯ Tópico', channel.topic || '❯ Nenhum');
     return message.reply(embed);
 }
-exports.configuracao = {
-    apenasCriador: false,
-    modulo: 'utilitarios',
-    aliases: ['channel'],
-    permissoesNecessarias: [],
-    permissoesBot: []
-};
-
-exports.ajuda = {
-    nome: 'canal',
-    descricao: 'Veja informações de tal canal!',
-    usar: 'canal #canal',
-    exemplos: []
-};
+})
