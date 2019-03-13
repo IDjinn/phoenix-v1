@@ -4,7 +4,7 @@ const moment = require('moment')
 const mongoose = require('mongoose')
 const settings = require('./settings.json');
 
-mongoose.connect(`mongodb://${settings.mongoose.usuario}:${settings.mongoose.senha}@ds161410.mlab.com:61410/phoenix`,{ useNewUrlParser: true,
+mongoose.connect(`mongodb://${settings.mongoose.usuario}:${settings.mongoose.senha}@${settings.mongoose.link}`,{ useNewUrlParser: true,
 reconnectTries: Number.MAX_VALUE, 
 reconnectInterval: 1000,
 keepAlive: 1, 
