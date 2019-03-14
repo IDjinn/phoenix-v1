@@ -31,6 +31,7 @@
     "marked": "^0.6.0",
     "mathjs": "^5.5.0",
     "mc-ping-updated": "^0.1.0",
+    "milisegundos": "^1.0.2",
     "moment": "^2.24.0",
     "moment-duration-format": "^2.2.2",
     "mongoose": "^5.4.4",

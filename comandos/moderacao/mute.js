@@ -1,4 +1,5 @@
 const util = require('../../utilitarios/util.js')
+const milisegundos = require('milisegundos')
 module.exports = new (class Mute {
   constructor(){
         this.apenasCriador = false,
@@ -29,7 +30,7 @@ async run(client,message,args) {
     message.reply("Por quanto tempo você deseja silenciar esse usuário? Exemplos: `1 dia`, `5 horas`, `2 minutos`. Caso deseja cancelar, `cancelar`")
     await message.channel.awaitMessages(filtro, { max: 1, time: 60000, errors: ['time'] })
       .then(async c => {
-        tempo = await util.converterData(c.first().content)
+        tempo = await milisegundos(c.first().content)
         })
       .catch(e => {client.emit("embedDescricao",message,"Você não definiu o tempo.",true)
         tempo = 29030400 * 1000

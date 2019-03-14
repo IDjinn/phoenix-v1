@@ -15,7 +15,9 @@ connectTimeoutMS: 30000, }).then(c => {
 })
 
 const client = new Discord.Client({
-    disableEveryone: true
+    disableEveryone: true,
+    messageCacheMaxSize: 45,
+    fetchAllMembers: true
 });
 
 client.canalSugestao = new Set()
@@ -37,10 +39,6 @@ client.comandos = new Discord.Collection();
 client.configuracoes = new Discord.Collection();
 
 client.afk = new Discord.Collection();
-
-client.config = new Discord.Collection();
-
-client.servidorConfig = require('./config.js')
 
 client.settings = new Discord.Collection()
 
@@ -79,10 +77,6 @@ client.Especiais = new Discord.Collection();
 client.Outros = new Discord.Collection();
 //
 
-client.lang = require('./modulos/lang.js')('pt-BR')
-
-client.tags = new Discord.Collection()
-client.points =  new Discord.Collection()
 client.silenciados = new Discord.Collection()
 client.punicoes = new Discord.Collection()
 client.convites = new Discord.Collection()
@@ -236,27 +230,7 @@ exports.cache = async () => Cache()
 exports.atualizarComandos = async () => RegistrarComandos()
 
 async function RegistrarComandos(){
-    client.Diversao.comandos = client.comandos.filter(c => c.modulo == 'diversao').filter(c=> c.apenasCriador == false).map(c => `${c.nome}`).join(', ')
-    client.Moderacao.comandos = client.comandos.filter(c => c.modulo == 'moderacao').filter(c=> c.apenasCriador == false).map(c => `${c.nome}`).join(', ')
-    client.Administracao.comandos = client.comandos.filter(c => c.modulo == 'administracao').filter(c=> c.apenasCriador == false).map(c => `${c.nome}`).join(', ')
-    client.Utilitarios.comandos = client.comandos.filter(c => c.modulo == 'utilitarios').filter(c=> c.apenasCriador == false).map(c => `${c.nome}`).join(', ')
-    client.Jogos.comandos = client.comandos.filter(c => c.modulo == 'jogos').filter(c=> c.apenasCriador == false).map(c => `${c.nome}`).join(', ')
-    //client.Musica.comandos = client.comandos.filter(c => c.modulo == 'musica').filter(c=> c.apenasCriador == false).map(c => `${c.nome}`).join(', ')
-    client.Economia.comandos = client.comandos.filter(c => c.modulo == 'economia').filter(c=> c.apenasCriador == false).map(c => `${c.nome}`).join(', ')
-    client.Especiais.comandos = client.comandos.filter(c=> c.apenasCriador == true).map(c => `${c.nome}`).join(', ')
-    client.Outros.comandos = client.comandos.filter(c => c.modulo == 'outros').filter(c=> c.apenasCriador == false).map(c => `${c.nome}`).join(', ')
-    client.Imagens.comandos = client.comandos.filter(c => c.modulo == 'photoshop').filter(c=> c.apenasCriador == false).map(c => `${c.nome}`).join(', ')
-
-    client.Diversao.fcmd = client.comandos.filter(c => c.modulo == 'diversao').filter(c=> c.apenasCriador == false).map(b => '`'+ b.ajuda.nome +'` -> ' + b.ajuda.descricao).join('\n')
-    client.Moderacao.fcmd = client.comandos.filter(c => c.modulo == 'moderacao').filter(c=> c.apenasCriador == false).map(b => '`'+ b.ajuda.nome +'` -> ' + b.ajuda.descricao).join('\n')
-    client.Administracao.fcmd = client.comandos.filter(c => c.modulo == 'administracao').filter(c=> c.apenasCriador == false).map(b => '`'+ b.ajuda.nome +'` -> ' + b.ajuda.descricao).join('\n')
-    client.Utilitarios.fcmd = client.comandos.filter(c => c.modulo == 'utilitarios').filter(c=> c.apenasCriador == false).map(b => '`'+ b.ajuda.nome +'` -> ' + b.ajuda.descricao).join('\n')
-    client.Jogos.fcmd = client.comandos.filter(c => c.modulo == 'jogos').filter(c=> c.apenasCriador == false).map(b => '`'+ b.ajuda.nome +'` -> ' + b.ajuda.descricao).join('\n')
-    //client.Musica.fcmd = client.comandos.filter(c => c.modulo == 'musica').filter(c=> c.apenasCriador == false).map(b => '`'+ b.ajuda.nome +'` -> ' + b.ajuda.descricao).join('\n')
-    client.Economia.fcmd = client.comandos.filter(c => c.modulo == 'economia').filter(c=> c.apenasCriador == false).map(b => '`'+ b.ajuda.nome +'` -> ' + b.ajuda.descricao).join('\n')
-    client.Especiais.fcmd = client.comandos.filter(c=> c.apenasCriador == true).map(b => '`'+ b.ajuda.nome +'` -> ' + b.ajuda.descricao).join('\n')
-    client.Outros.fcmd = client.comandos.filter(c => c.modulo == 'outros').filter(c=> c.apenasCriador == false).map(b => '`'+ b.ajuda.nome +'` -> ' + b.ajuda.descricao).join('\n')
-    client.Imagens.fcmd = client.comandos.filter(c => c.modulo == 'photoshop').filter(c=> c.apenasCriador == false).map(b => '`'+ b.ajuda.nome +'` -> ' + b.ajuda.descricao).join('\n')
+    //nada aqui
 }
 
 const log = (msg) => {
@@ -334,9 +308,4 @@ client.permissaoBot = function(msg,perms) {
 return permitido;
 }
 
-if(settings.beta){
-    client.login(settings.token2);
-}
-else{
-    client.login(settings.token1);
-}
+client.login(settings.token);

@@ -1,6 +1,7 @@
 const Timer = require('../../database/timers.js')
 const Temporizador = require('../../modulos/timers.js')
 const util = require('../../utilitarios/util.js')
+const milisegundos = require('milisegundos')
 module.exports = new (class Timer {
   constructor(){
         this.apenasCriador = true;
@@ -58,7 +59,7 @@ if(!cancelado) await message.channel.send(`Quanto tempo deseja que o timer fique
 await message.channel.awaitMessages(filtro, { max: 1, time: 300000, errors: ['time'] })
 .then(async aaa => {
   aaa = aaa.first()
-    tempo = await util.converterData(aaa.content)
+    tempo = await milisegundos(aaa.content)
     if(tempo > 2592000000 || tempo < 60000) {
       cancelado = true
       return message.reply("Quantidade de tempo inválida, menor que 1 minuto ou maior que 30 dias.")
@@ -73,7 +74,7 @@ if(!cancelado) await message.channel.send(`Qual será o intervalo? Exemplos: \`5
 await message.channel.awaitMessages(filtro, { max: 1, time: 300000, errors: ['time'] })
 .then(async eee => {
   eee = eee.first()
-    intervalo = await util.converterData(eee.content)
+    intervalo = await milisegundos(eee.content)
     if(intervalo > 86400000 || intervalo < 60000) {
       cancelado = true
       return message.reply("Quantidade de tempo inválida, menor que 1 minuto ou maior que 1 dia.")

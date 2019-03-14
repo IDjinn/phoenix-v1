@@ -116,10 +116,7 @@ module.exports = async (message) => {
 			if(cmd.permissoesNecessarias){
 				if (client.permissao(message,cmd.permissoesNecessarias) == false  && message.author.id != '376460601909706773'){
 				await message.delete().catch()
-				let lista = " "
-				for(let i in cmd.permissoesNecessarias){
-					lista = lista + permissoes[cmd.permissoesNecessarias[i]] + ", "
-				}
+				let lista = map(p => permissoes[cmd.permissoesNecessarias[p]]).join(', ')
 				return client.emit("oopsEmbed",message,`Você precisa de alguma permissão como \`${lista}\` para poder usar esse comando!`,true)
 			}
 		}
@@ -127,10 +124,7 @@ module.exports = async (message) => {
 			if(cmd.permissoesBot){
 				if (client.permissaoBot(message,cmd.permissoesBot) == false/* && message.author.id != '376460601909706773'*/){
 				 await message.delete().catch()
-				let lista = " "
-				for(let i in cmd.permissoesBot){
-					lista = lista + permissoes[cmd.permissoesBot[i]] + ", "
-				}
+				let lista = map(p => permissoes[cmd.permissoesBot[p]]).join(', ')
 				return client.emit("oopsEmbed",message,`Eu preciso ter permissão de \`${lista}\` para poder executar esse comando!`,true)
 			}
 		}

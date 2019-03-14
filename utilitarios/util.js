@@ -8,6 +8,7 @@ const Silenciados = require('../database/punicoes.js')
 const Discord = require('discord.js')
 const Transacoes = require('../database/transacoes.js')
 const Usuarios = require('../database/usuario.js')
+const ms = require('ms')
 
 async function fetchMessagesInner(channel, remaining, foundMessages, lastMessage) {
     lastMessage = lastMessage != null ? lastMessage.id : undefined;
@@ -161,59 +162,6 @@ exports.Sleep = async (t) => {
   function sleep(ms) {
       return new Promise(resolve => setTimeout(resolve, ms));
     }
-}
-
-exports.converterData = async(mensagem) => {
-let args = mensagem.split(' ')
-let tempo = 0
-let multiplicador = 1000 * 60
-for(let a in args){
-  if(!isNaN(args[a])) tempo = parseInt(args[a])
-  else switch(args[a].toLocaleLowerCase()){
-    case 's':
-    case 'segundos':
-    case 'segundo':
-      multiplicador = 1000
-      break;
-
-    case 'm':
-    case 'minuto':
-    case 'minutos':
-      multiplicador = 1000 * 60
-      break;
-
-    case 'h':
-    case 'hora':
-    case 'horas':
-      multiplicador = 1000 * 60 * 60
-      break;
-
-    case 'd':
-    case 'dia':
-    case 'dias':
-      multiplicador = 1000 * 60 * 60 * 24
-      break;
-
-    case 's':
-    case 'semana':
-    case 'semanas':
-      multiplicador = 1000 * 60 * 60 * 24 * 7
-      break;
-
-    case 'mes':
-    case 'mês':
-    case 'mêses':
-      multiplicador = 1000 * 60 * 60 * 24 * 7 * 4
-      break;
-
-    case 'ano':
-    case 'a':
-    case 'anos':
-      multiplicador = 1000 * 60 * 60 * 24 * 7 * 4 * 12
-      break;
-  }
-}
-  return multiplicador * tempo
 }
 
 exports.punir = async (guild, id, motivo, staff, tipo, bot, client) =>{

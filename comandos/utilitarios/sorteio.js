@@ -1,5 +1,6 @@
 const util = require('../../utilitarios/util.js')
 const Discord = require('discord.js')
+const milisegundos = require('milisegundos')
 module.exports = new (class Sorteio {
   constructor(){
         this.apenasCriador = false,
@@ -93,7 +94,7 @@ async runz(client, message, args) {
     if(!cancelado) await message.channel.awaitMessages(filtro, { max: 1, time: 300000, errors: ['time'] })
     .then(async m => {
       cancelado = true
-      tempo = await util.converterData(m.first().content)
+      tempo = await milisegundos(m.first().content)
       if(!tempo) message.channel.send(`Você não definiu um prazo para o sorteio válido.`)
     .catch(m => {
       cancelado = true

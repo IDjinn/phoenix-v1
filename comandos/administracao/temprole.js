@@ -1,5 +1,6 @@
 const util = require('../../utilitarios/util.js')
 const TempRole = require('../../database/temprole')
+const milisegundos = require('milisegundos')
 module.exports = new (class TempRole {
   constructor(){
         this.apenasCriador = false;
@@ -27,7 +28,7 @@ module.exports = new (class TempRole {
           if(!role) return client.emit('ajudaComando', message, this)
 
           let tempo = split.slice(1).join(" ")
-          tempo = await util.converterData(tempo)
+          tempo = await milisegundos(tempo)
           if(!tempo) return client.emit('ajudaComando', message, 'Defina um período válido!', true);
 
           const temprole = new TempRole({
