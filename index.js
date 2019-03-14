@@ -2,7 +2,7 @@ const Discord = require('discord.js');
 const fs = require('fs');
 const moment = require('moment')
 const mongoose = require('mongoose')
-const settings = require('./settings.json');
+const settings = require('./settings.js/index.js');
 
 mongoose.connect(`mongodb://${settings.mongoose.usuario}:${settings.mongoose.senha}@${settings.mongoose.link}`,{ useNewUrlParser: true,
 reconnectTries: Number.MAX_VALUE, 
