@@ -1,6 +1,4 @@
 const requerEvento = (event) => require(`../eventos/${event}`)
-const constantes = require('../utilitarios/constantes.js')
-const extras = require('../utilitarios/extras.js')
 module.exports = async client => {
 	client.on('ready', () => requerEvento('ready')(client));
 

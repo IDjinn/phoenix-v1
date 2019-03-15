@@ -1,4 +1,4 @@
-const Discord = require('discord.js');
+const { Collection, Client } = require('discord.js');
 const fs = require('fs');
 const moment = require('moment')
 const mongoose = require('mongoose')
@@ -14,74 +14,15 @@ connectTimeoutMS: 30000, }).then(c => {
     console.log(`Ocorreu um erro ao contectar à database: ${e.message}`)
 })
 
-const client = new Discord.Client({
+const client = new Client({
     disableEveryone: true,
     messageCacheMaxSize: 45,
     fetchAllMembers: true
 });
 
-client.canalSugestao = new Set()
-
-client.tempRole = new Discord.Collection()
-
-client.reactionRole = new Discord.Collection()
-
-client.entradas = new Discord.Collection()
-
-client.comandosExe = 0
-
-client.modPerms = ['KICK_MEMBERS','BAN_MEMBERS','MOVE_MEMBERS','MUTE_MEMBERS','MENTION_EVERYONE']
-
-client.admPerms = ['MANAGE_GUILD','MANAGE_CHANNELS','MANAGE_NICKNAMES','MANAGE_ROLES','MANAGE_WEBHOOKS','MANAGE_EMOJIS','ADMINISTRATOR']
-
-client.comandos = new Discord.Collection();
-
-client.configuracoes = new Discord.Collection();
-
-client.afk = new Discord.Collection();
-
-client.settings = new Discord.Collection()
-
-client.userRaider = new Discord.Collection()
-
-client.playList = new Discord.Collection()
-
-client.ticketsAbertos = new Discord.Collection();
-
-client.servidores = new Discord.Collection();
-
-client.nbanidos = new Set()
-
-client.sbanidos = new Set()
-
-client.gbanidos = new Set()
-
-client.local = new Discord.Collection()
-
-client.usuarios = new Discord.Collection();
-
-client.aliases = new Discord.Collection();
-
+require('./collections.js')(client);
 require('./eventos/eventLoader')(client);
 const extras = require('./utilitarios/extras.js')
-
-//Comandos
-client.Diversao = new Discord.Collection();
-client.Moderacao = new Discord.Collection();
-client.Administracao = new Discord.Collection();
-client.Utilitarios = new Discord.Collection();
-client.Jogos = new Discord.Collection();
-client.Imagens = new Discord.Collection();
-client.Economia = new Discord.Collection();
-client.Especiais = new Discord.Collection();
-client.Outros = new Discord.Collection();
-//
-
-client.silenciados = new Discord.Collection()
-client.punicoes = new Discord.Collection()
-client.convites = new Discord.Collection()
-client.timers = new Discord.Collection()
-
 const Silenciados = require('./database/silenciados.js')
 const Punicoes = require('./database/punicoes.js')
 const Timers = require('./database/timers.js')
@@ -133,7 +74,7 @@ async function Cache(){
             removidoPor: u.removidoPor
         }
         let g = await client.guilds.get(u.guild)
-        if(!g.silenciados) g.silenciados = new Discord.Collection()
+        if(!g.silenciados) g.silenciados = new Collection()
         g.silenciados[u.id] = s
       });  
     });
@@ -218,7 +159,7 @@ async function Cache(){
                 canal: t.canal,
                 quantidaderepetir: t.quantidaderepetir
             }
-        let timer = new Temporizador(client.timers[t.servidor])
+        new Temporizador(client.timers[t.servidor])
         }
         });  
     });
