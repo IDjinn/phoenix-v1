@@ -1,22 +1,14 @@
 const { Collection, Client } = require('discord.js');
 const fs = require('fs');
 const moment = require('moment')
-const mongoose = require('mongoose')
 const settings = require('./settings.js');
 const CommandManager = require('./modulos/comandos.js')
 const BanManager = require('./modulos/banidos.js')
 const AntiRaidManager = require('./modulos/antiraid.js')
 const AutoModManager = require('./modulos/automod.js')
+const DatabaseManager = require('./estruturas/mongoose.js')
 
-mongoose.connect(`mongodb://${settings.mongoose.usuario}:${settings.mongoose.senha}@${settings.mongoose.link}`,{ useNewUrlParser: true,
-reconnectTries: Number.MAX_VALUE, 
-reconnectInterval: 1000,
-keepAlive: 1, 
-connectTimeoutMS: 30000, }).then(c => {
-    console.log('Concectado à Database!')
-}).catch(e => {
-    console.log(`Ocorreu um erro ao contectar à database: ${e.message}`)
-})
+new DatabaseManager(settings.mongoose)
 
 class Phoenix extends Client{
     constructor(token){
