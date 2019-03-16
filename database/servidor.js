@@ -21,17 +21,18 @@ var Servidor = mongoose.Schema({
         verificado: String
     },
     automod:{
-        autowarn: String,
-        antiraid: String,
-        antispamemoji: String,
-        antispaminvite: String,
+        autowarn: Boolean,
+        antiraid: Boolean,
+        antispamemoji: Boolean,
+        antispaminvite: Boolean,
         blacklink: String,
         whitelink: String,
-        antispamcaps: String,
-        lockserver: String,
-        serverislocked: String,
-        textdup: String,
-        antispammention: String
+        antispamcaps: Number,
+        lockserver: Boolean,
+        serverislocked: Boolean,
+        textdup: Number,
+        antispammention: Number,
+        globalban: Boolean
     },
     eco:{
         singular: String,

@@ -6,7 +6,6 @@ var Punicoes = mongoose.Schema({
     motivo: String,
     staff: String,
     tipo: Number,
-    bot: String,
     removidoPor: String
 });
 /*

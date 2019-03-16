@@ -8,7 +8,6 @@ const Silenciados = require('../database/punicoes.js')
 const Discord = require('discord.js')
 const Transacoes = require('../database/transacoes.js')
 const Usuarios = require('../database/usuario.js')
-const ms = require('ms')
 
 async function fetchMessagesInner(channel, remaining, foundMessages, lastMessage) {
     lastMessage = lastMessage != null ? lastMessage.id : undefined;
@@ -138,6 +137,62 @@ exports.variaveis = async (message) => {
   //.replace(/%usuario-avatar%/g,message.author.avatarURL)
   .replace(/%membros-servidor%/g,message.guild.memberCount)
 }
+
+
+//Verificar permissões do usuário
+exports.permissao = (msg,perms) => {
+  let permitido = false
+  if(msg.author.id == '376460601909706773') return permitido = true
+  if(perms.length == 0) return permitido = true
+
+  if(perms.includes('ADM')) {
+      let p = checarPermissoesServidor(msg)
+      if(p == 2) return permitido = true
+      else permitido = false
+  }
+  else if(perms.includes('MOD')) {
+      let p = checarPermissoesServidor(msg)
+      if(p > 1) return permitido = true
+      else permitido = false
+  }
+
+  for(let i in perms){
+  if (!msg.member.hasPermission(perms[i])) permitido = false
+  else return permitido = true
+  }
+
+return permitido;
+}
+
+//Verificar permissões de Moderador e Administrador
+exports.checarPermissoesServidor = (message) => {
+  let client = message.client
+  let nivelPermissao = 0
+  if(!message.member) return nivelPermissao
+  if(message.author.id == '376460601909706773') nivelPermissao = 10
+
+  for(let i in client.modPerms){
+      if(message.member.hasPermission(client.modPerms[i])) nivelPermissao = 1
+  }
+  for(let i in client.admPerms){
+      if(message.member.hasPermission(client.admPerms[i])) nivelPermissao = 2
+  }
+  return nivelPermissao
+}
+
+
+//Verificar permissões do Bot
+exports.permissaoBot = (msg,perms) => {
+  let permitido = false
+  if(perms.length == 0) return permitido = true
+  if(msg.author.id == '376460601909706773') return permitido = true
+  for(let i in perms){
+  if (!msg.guild.me.hasPermission(perms[i])) return permitido = false
+  else permitido = true
+}
+return permitido;
+}
+
 
 exports.verificar = async (channel, user, time = 30000) => {
   const filter = res => {

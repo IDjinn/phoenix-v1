@@ -28,7 +28,7 @@ module.exports = async message => {
 
 	//Servidor
     let servidor = message.guild.dados || client.servidores[message.guild.id] || await extras.Servidor(message.guild.id,client)
-	if(!message.member.permissoesServidor) message.member.permissoesServidor = client.checarPermissoesServidor(message)
+	if(!message.member.permissoesServidor) message.member.permissoesServidor = require('../utilitarios/util.js').checarPermissoesServidor(message)
 	
 	//Moderação
 	await automod(client,message)
@@ -37,7 +37,8 @@ module.exports = async message => {
 	let usuario = message.author.dados || client.usuarios[message.guild.id] || await extras.Usuario(message.author.id,client)
 	let membro = message.member.local || await extras.Local(message.author.id, message.guild.id, client)	
 	
-	//Banimentos do bot
+	//Moderação
+	await automod(client,message)
 	bans(client,message)
 
 	//Comandos

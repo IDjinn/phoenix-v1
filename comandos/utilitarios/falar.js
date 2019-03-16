@@ -15,7 +15,7 @@ async run(client, message, args) {
     let mensagemFiltrada = args.join(' ')
     if(!mensagemFiltrada) return client.emit('ajudaComando', message, this)
     if(message.member.hasPermission("MENTION_EVERYONE")) mensagemFiltrada = mensagemFiltrada.replace(/@here/,'`@here`').replace(/@everyone/,'`@everyone`')
-    if(!client.permissao(message,'MOD')){
+    if(!util.permissao(message,'MOD')){
         message.reply("Me forçou à falar " + mensagemFiltrada)
         message.delete().catch()
         return;

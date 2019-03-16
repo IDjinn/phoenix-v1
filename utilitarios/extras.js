@@ -132,7 +132,7 @@ module.exports = {
                 id: id
             },async (erro, servidor) => {
         if(erro) return console.log(erro)
-        if(!servidor) return //this.CriarServidor(id,client)
+        if(!servidor) return this.CriarServidor(id,client)
         else {
             client.servidores[id] = {
                 id: id,
